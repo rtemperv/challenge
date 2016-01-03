@@ -16,11 +16,12 @@ class Graph(object):
 
     def _add_edge(self, a, b, weight):
         edge = Edge(a, b, weight)
-        self.adjacency_list[a].add(edge)
+        self.adjacency_list[a].append(edge)
+        self.adjacency_list[b].append(edge)
 
     def add_vertex(self, vertex):
         if vertex not in self.adjacency_list:
-            self.adjacency_list[vertex] = set()
+            self.adjacency_list[vertex] = []
 
     def edge_exists(self, a, b):
         if a not in self.adjacency_list[a]:
@@ -37,5 +38,25 @@ class Graph(object):
         if not self.edge_exists(a, b):
             self._add_edge(a, b, weight)
 
+    def get_adjacent_vertices(self, vertex):
 
+        if vertex not in self.adjacency_list:
+            raise RuntimeError('Vertex not present')
+
+        return [edge.b for edge in self.adjacency_list[vertex] if edge.a == vertex]
+
+    def get_edges(self, vertex):
+
+        if vertex not in self.adjacency_list:
+            raise RuntimeError('Vertex not present')
+
+        return list(self.adjacency_list[vertex])
+
+    def get_vertices(self):
+        return list(self.adjacency_list.keys())
+
+    def delete_edge(self, a, b):
+        if a in self.adjacency_list and b in self.adjacency_list:
+            self.adjacency_list[a] = filter(lambda x: x.a != a or x.b != b, self.adjacency_list[a])
+            self.adjacency_list[b] = filter(lambda x: x.a != a or x.b != b, self.adjacency_list[b])
 

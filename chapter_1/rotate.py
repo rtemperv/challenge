@@ -8,7 +8,7 @@ def rotate(matrix: List[List[optional(int)]]) -> List[List[optional(int)]]:
     if not is_square(matrix):
         raise ValueError()
     # Rotate 90 degrees
-    # O(n) + O(n2) + O(n2)
+    # O(n) + O(n2) + O(n2) ~ O(n2)
     return list(map(list, zip(*matrix[::-1])))
 
 

@@ -11,6 +11,6 @@ def test_graph():
     assert len(g.adjacency_list) == 3
 
     for vertex, edges in g.adjacency_list.items():
-        assert len(edges) == 1
+        assert len(edges) == 2
 
 

@@ -16,6 +16,9 @@ class Stack(object):
         with self._lock:
             return len(self._linked_list)
 
+    def __contains__(self, item):
+        return item in self._linked_list
+
     def push(self, value):
         with self._lock:
             self._linked_list.prepend(value)

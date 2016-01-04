@@ -120,6 +120,9 @@ class LinkedList(Generic[T]):
     def __len__(self) -> int:
         return self._length
 
+    def __contains__(self, item):
+        return item in self.to_array()
+
     def remove_duplicates(self):
         """
         Remove all the duplicates in the linked list. O(n) time, O(n) size

@@ -1,7 +1,7 @@
 import sys
 from heapq import heappop, heappush
 from structures.graph import Graph
-
+from structures.stack import Stack
 
 def find_shortest_path(graph, start_node, end_node):
     """
@@ -47,3 +47,17 @@ def find_shortest_path(graph, start_node, end_node):
         visited_nodes.add(vertex)
 
     return distances[end_node], paths[end_node]
+
+def find_cycles(graph):
+
+    vertices = set(graph.get_vertices())
+
+    start = vertices.pop()
+
+    stack = Stack()
+
+    def _find_cycles(graph, stack, current_vertex):
+        for av in graph.get_adjacent_vertices(current_vertex):
+            if av in stack:
+                # Found a cycle
+                

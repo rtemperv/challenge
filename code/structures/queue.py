@@ -7,9 +7,9 @@ class Queue(object):
     FIFO queue based on single linked list
     All operations are O(1)
     """
-    def __init__(self):
+    def __init__(self, data=None):
         # Use composition to hide the linked list implementation details
-        self._linked_list = LinkedList()
+        self._linked_list = LinkedList() if not data else LinkedList.from_array(data)
         self._lock = Lock()
 
     def __len__(self):
@@ -23,6 +23,10 @@ class Queue(object):
     def dequeue(self):
         with self._lock:
             return self._linked_list.remove(0).value
+
+    def peek(self):
+        with self._lock:
+            return self._linked_list.get(0).value
 
     def is_empty(self):
         with self._lock:

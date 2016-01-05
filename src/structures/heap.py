@@ -71,6 +71,8 @@ class BinaryHeap(object):
         """
         O(n) method to heapify a binary tree
         """
+        if self._root is None:
+            return
 
         for node in reversed(list(self._root.breadth_first_traversal())):
             if node.lnode or node.rnode:
@@ -106,7 +108,7 @@ class BinaryHeap(object):
         """
         Find the parent node to insert a new node and keep the tree complete (O(logn))
         """
-        return self.__find_node_at_position(self.heap_size // 2)
+        return self.__find_node_at_position((self.heap_size + 1) // 2)
 
     def __find_node_at_position(self, position):
 

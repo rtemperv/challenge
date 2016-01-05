@@ -20,3 +20,22 @@ class TestBinaryHeap(unittest.TestCase):
             except IndexError:
                 break
         assert len(self.list) == 0
+
+    def test_insert(self):
+        heap = BinaryHeap()
+
+        heap.insert(4)
+        heap.insert(7)
+        heap.insert(1)
+        heap.insert(2)
+        heap.insert(10)
+
+        assert heap.pop() == 1
+
+        heap.insert(3)
+
+        assert heap.pop() == 2
+        assert heap.pop() == 3
+        assert heap.pop() == 4
+        assert heap.pop() == 7
+        assert heap.pop() == 10

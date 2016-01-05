@@ -1,4 +1,4 @@
-from code.ctci.chapter_1 import is_unique, reverse, is_anagram, remove_duplicates, remove_duplicates_better, rotate, expand_zeros, is_rotation
+from src.ctci.chapter_1 import is_unique, reverse, is_anagram, remove_duplicates, remove_duplicates_better, rotate, expand_zeros, is_rotation
 from nose.tools import assert_raises
 
 

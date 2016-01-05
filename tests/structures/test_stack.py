@@ -1,4 +1,4 @@
-from code.structures import Stack
+from src.structures import Stack
 from nose.tools import assert_raises
 
 

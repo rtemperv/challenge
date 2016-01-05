@@ -1,7 +1,7 @@
 import string
 
 import random
-from code.structures import HashTable
+from src.structures import HashTable
 
 
 def test_create():

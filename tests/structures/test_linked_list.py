@@ -1,4 +1,4 @@
-from code.structures import LinkedList
+from src.structures import LinkedList
 from nose.tools import assert_raises
 
 

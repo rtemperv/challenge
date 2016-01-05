@@ -1,6 +1,6 @@
 import sys
 
-from code.structures import Stack
+from src.structures import Stack
 from heapq import heappop, heappush
 
 

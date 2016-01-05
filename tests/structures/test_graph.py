@@ -1,4 +1,4 @@
-from code.structures import Graph
+from src.structures import Graph
 
 
 def test_graph():

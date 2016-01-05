@@ -1,4 +1,4 @@
-from code.structures import BinarySearchNode
+from src.structures import BinarySearchNode
 import unittest
 
 
@@ -18,9 +18,6 @@ class TestTree(unittest.TestCase):
         d.lnode = f
         self.tree = a
 
-        print(a.max_value)
-
-
     def test_get_leafs(self):
         leafs = list(self.tree.get_leaf_nodes())
         assert len(leafs) == 2, "Incorrect amount of leafs"
@@ -31,3 +28,6 @@ class TestTree(unittest.TestCase):
 
     def test_min_value(self):
         assert self.tree.min_value == 1, "Incorrect minimum value"
+
+    def test_in_order_traversal(self):
+        assert list(map(lambda x: x.value, self.tree.in_order_traversal())) == [1, 2, 2, 3, 4.99, 5]

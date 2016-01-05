@@ -1,9 +1,9 @@
-from code.structures import Queue
+from src.structures import Queue
 from nose.tools import assert_raises
 import unittest
 
-class TestQueue(unittest.TestCase):
 
+class TestQueue(unittest.TestCase):
     def setUp(self):
         self.queue = Queue()
         self.queue.enqueue(1)
@@ -30,6 +30,3 @@ class TestQueue(unittest.TestCase):
         assert self.queue.peek() == 1
         assert len(self.queue) == 3
         assert_raises(IndexError, self.empty_queue.peek)
-
-
-

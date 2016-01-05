@@ -1,5 +1,5 @@
-from code.structures import Graph
-from code.topcoder.dynamic.dijkstra import find_shortest_path
+from src.structures import Graph
+from src.topcoder.dynamic.dijkstra import find_shortest_path
 
 
 def test_dijkstra():

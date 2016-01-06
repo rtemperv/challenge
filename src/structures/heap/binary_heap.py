@@ -122,3 +122,7 @@ class BinaryHeap(object):
                 node = node.lnode
 
         return node
+
+
+class FibonacciHeap(object):
+    pass

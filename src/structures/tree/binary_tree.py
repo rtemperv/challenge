@@ -11,7 +11,6 @@ class BinaryNode(object):
     def __init__(self, value, *, lnode=None, rnode=None):
         # These will be set by the properties
         self.parent = None
-        self.previous_node = None
         self._lnode = None
         self._rnode = None
 
@@ -232,3 +231,4 @@ class BinarySearchNode(BinaryNode):
                 return node.value
             old_node = node
             node = old_node.parent
+

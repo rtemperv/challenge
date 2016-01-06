@@ -37,14 +37,14 @@ class BinomialHeap(object):
 
             # Both source and destination heap have an element of this order
             if destination_heap is not None and destination_heap.value and source_heap is not None and source_heap.value:
-                new_carry_over = self.__merge_trees(destination_heap.value, source_heap.value)
+                new_carry_over = destination_heap.value.merge_min(source_heap.value)
                 destination_heap.value = carry_over if carry_over else None
                 carry_over = new_carry_over
 
             # Only the source heap has an element of this order
             elif source_heap is not None and source_heap.value:
                 if carry_over:
-                    carry_over = self.__merge_trees(carry_over, source_heap.value)
+                    carry_over = carry_over.merge_min(source_heap.value)
                     destination_heap.value = None
                 else:
                     destination_heap.value = source_heap.value
@@ -52,7 +52,7 @@ class BinomialHeap(object):
             # Only the destination heap has an element of this order
             elif destination_heap is not None and destination_heap.value:
                 if carry_over:
-                    carry_over = self.__merge_trees(carry_over, destination_heap.value)
+                    carry_over = carry_over.merge_min(destination_heap.value)
                     destination_heap.value = None
 
             # Only carry over
@@ -106,18 +106,6 @@ class BinomialHeap(object):
 
     def __len__(self):
         return sum(map(lambda x: len(x) if x else 0, self.trees.to_array()))
-
-    @staticmethod
-    def __merge_trees(a: BinomialTreeNode, b: BinomialTreeNode) -> BinomialTreeNode:
-        """
-        Merge two binomial trees such that the minimal element is the root
-        """
-        if a.value < b.value:
-            a.add_child(b)
-            return a
-        else:
-            b.add_child(a)
-            return b
 
     @staticmethod
     def __build_heap_from_trees(trees: List[Optional[BinomialTreeNode]]) -> 'BinomialHeap':

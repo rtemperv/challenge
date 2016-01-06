@@ -30,3 +30,8 @@ class Stack(object):
     def peek(self):
         with self._lock:
             return self._linked_list.get(0).value
+
+    def is_empty(self):
+        with self._lock:
+            return len(self._linked_list) == 0
+

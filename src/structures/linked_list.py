@@ -202,5 +202,18 @@ class LinkedList(Generic[T]):
             next_node = next_node.get_next_node()
         return None
 
+    def merge(self, linked_list: 'LinkedList'):
+        if len(self) == 0:
+            self.head = linked_list.head
+            self.tail = linked_list.tail
+            self._length = linked_list._length
+
+        if len(linked_list) == 0:
+            return
+
+        self.get_tail_node().set_next_node(linked_list.head)
+        self.tail = linked_list.tail
+        self._length += len(linked_list)
+
     def __str__(self) -> str:
         return "[" + (" -> ".join(map(str, self.to_array()))) + "]"

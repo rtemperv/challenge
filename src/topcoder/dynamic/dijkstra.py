@@ -1,7 +1,7 @@
 import sys
 
 from src.structures import Stack
-from heapq import heappop, heappush
+from src.structures import FibonacciHeap
 
 
 def find_shortest_path(graph, start_node, end_node):
@@ -14,7 +14,8 @@ def find_shortest_path(graph, start_node, end_node):
     """
 
     # Min heap
-    pq = [(0, start_node)]
+    pq = FibonacciHeap()
+    pq.insert((0, start_node))
 
     # Final distances and paths from the start node
     distances = {key: sys.maxsize for key in graph.get_vertices()}
@@ -26,8 +27,8 @@ def find_shortest_path(graph, start_node, end_node):
     # Set start node distance to 0
     distances[start_node] = 0
 
-    while pq:
-        distance, vertex = heappop(pq)
+    while not pq.is_empty():
+        distance, vertex = pq.pop()
 
         if distance == sys.maxsize or end_node in visited_nodes:
             # Only unconnected vertices are left or we found the minimal distance
@@ -43,7 +44,7 @@ def find_shortest_path(graph, start_node, end_node):
                 distances[outgoing_edge.b] = distance + outgoing_edge.weight
                 paths[outgoing_edge.b] = paths[outgoing_edge.a] + [outgoing_edge.b]
 
-                heappush(pq, (distance + outgoing_edge.weight, outgoing_edge.b))
+                pq.insert((distance + outgoing_edge.weight, outgoing_edge.b))
 
         visited_nodes.add(vertex)
 

@@ -138,3 +138,6 @@ class FibonacciHeap(object):
 
     def __len__(self):
         return sum(map(lambda x: len(x) if x else 0, self.trees))
+
+    def is_empty(self):
+        return self.min_tree is None

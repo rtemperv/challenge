@@ -43,3 +43,16 @@ class TestDijkstra(unittest.TestCase):
                 g.add_edge(a, b, random.randint(1, 100))
 
         distance, path = find_shortest_path(g, 1, 199)
+
+        if path:
+            cur_dist = 0
+            start = 1
+            for i in path:
+                for edge in g.adjacency_list[start]:
+                    if edge.b == i:
+                        cur_dist += edge.weight
+                        break
+                start = i
+            assert cur_dist == distance
+
+

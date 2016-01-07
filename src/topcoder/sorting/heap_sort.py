@@ -1,7 +1,7 @@
 from src.structures.heap.binary_heap import BinaryHeap
 
 
-def heapsort(array):
+def heap_sort(array):
     """
     Sorts an array using a binary heap in O(log n)
     """

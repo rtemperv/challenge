@@ -1,7 +1,7 @@
 import time
 from threading import Thread
 
-from code.structures import Queue
+from src.structures import Queue
 
 
 class Printer(Thread):

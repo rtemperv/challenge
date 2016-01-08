@@ -13,6 +13,7 @@ class TestFibonacciHeap(unittest.TestCase):
 
     def test_pop(self):
         start = 0
+
         while True:
             try:
                 value = self.heap.pop()

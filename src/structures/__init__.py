@@ -1,4 +1,4 @@
-from .linked_list import LinkedList
+from .linked_list.linked_list import LinkedList
 from .graph import Graph
 from .hash_table import HashTable
 from .linked_list import LinkedList, LinkedListNode

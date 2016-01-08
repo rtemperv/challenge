@@ -9,6 +9,4 @@ class TestMergeSort(unittest.TestCase):
 
         array = merge_sort(array)
 
-        print(array)
-
         assert array == sorted(array)

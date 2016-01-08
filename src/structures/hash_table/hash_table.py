@@ -1,4 +1,4 @@
-
+from typing import List
 
 class HashTable(object):
     """
@@ -14,7 +14,7 @@ class HashTable(object):
     def _get_ratio(self):
         return self._n_items / len(self.__table)
 
-    def _get_bucket(self, key):
+    def _get_bucket(self, key) -> List:
         i_hash = hash(key) & ((2 ** self._n_bits) - 1)
         if self.__table[i_hash] is None:
             self.__table[i_hash] = []
@@ -45,6 +45,9 @@ class HashTable(object):
         self._n_items += 1
 
     def _remove(self, key):
+        """
+        Remove the item with the given key from the hash table
+        """
         bucket = self._get_bucket(key)
 
         if bucket:
@@ -54,7 +57,10 @@ class HashTable(object):
                     self._n_items -= 1
                     return
 
-    def _rebalance(self):
+    def _rebalance(self) -> None:
+        """
+        Double the size of the internal array and redistribute the existing elements
+        """
         if self._get_ratio() > self.ratio_theshold:
             self._n_bits += 1
 
@@ -69,5 +75,4 @@ class HashTable(object):
                 if i:
                     for j in i:
                         self.__setitem__(*j)
-
 

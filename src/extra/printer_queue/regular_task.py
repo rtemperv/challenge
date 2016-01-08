@@ -1,6 +1,6 @@
 from time import time
 
-from code.printer_queue import Task
+from src.extra.printer_queue.task import Task
 
 
 class RegularTask(Task):

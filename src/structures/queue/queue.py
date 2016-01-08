@@ -1,29 +1,26 @@
-from .linked_list import LinkedList
+from src.structures.linked_list import LinkedList
 from threading import Lock
 
 
-class Stack(object):
+class Queue(object):
     """
-    FILO queue based on single linked list
+    FIFO queue based on single linked list
     All operations are O(1)
     """
-    def __init__(self):
+    def __init__(self, data=None):
         # Use composition to hide the linked list implementation details
-        self._linked_list = LinkedList()
+        self._linked_list = LinkedList() if not data else LinkedList.from_array(data)
         self._lock = Lock()
 
     def __len__(self):
         with self._lock:
             return len(self._linked_list)
 
-    def __contains__(self, item):
-        return item in self._linked_list
-
-    def push(self, value):
+    def enqueue(self, value):
         with self._lock:
-            self._linked_list.prepend(value)
+            self._linked_list.append(value)
 
-    def pop(self):
+    def dequeue(self):
         with self._lock:
             return self._linked_list.remove(0).value
 
@@ -34,4 +31,3 @@ class Stack(object):
     def is_empty(self):
         with self._lock:
             return len(self._linked_list) == 0
-

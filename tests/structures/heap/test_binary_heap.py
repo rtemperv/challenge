@@ -5,7 +5,7 @@ import random
 
 class TestBinaryHeap(unittest.TestCase):
     def setUp(self):
-        self.list = [random.randint(1,20) for _ in range(10)]
+        self.list = [random.randint(1, 20) for _ in range(10)]
         self.heap = BinaryHeap(self.list)
 
     def test_pop(self):

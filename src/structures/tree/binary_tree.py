@@ -88,7 +88,7 @@ class BinaryNode(object):
 
     def in_order_traversal(self) -> Iterator['BinaryNode']:
         """
-        Returns an iterator which traverses this subtree in-order
+        Returns an iterator which traverses this subtree depth first in-order
         """
         if self.lnode: yield from self.lnode.in_order_traversal()
         yield self

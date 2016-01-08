@@ -1,8 +1,8 @@
 from threading import Thread
 from time import sleep
 
-from code.printer_queue import RegularTask
 from random import randint
+from src.extra.printer_queue.regular_task import RegularTask
 
 
 class Producer(Thread):

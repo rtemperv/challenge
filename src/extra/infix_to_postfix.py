@@ -41,4 +41,4 @@ def infix_to_postfix(expression):
     while len(operator_stack):
         output_list.append(operator_stack.pop())
 
-    return ' '.join(output_list)
+    return ' '.join(output_list) 

@@ -1,12 +1,10 @@
 import sys
-
-from src.structures import Stack
 from src.structures import FibonacciHeap
+from src.structures import Graph
 
 
-def find_shortest_path(graph, start_node, end_node):
+def find_shortest_path(graph: Graph, start_node, end_node):
     """
-
     :param G: graph object
     :type G: Graph
     :type start_node:
@@ -50,16 +48,4 @@ def find_shortest_path(graph, start_node, end_node):
 
     return distances[end_node], paths[end_node]
 
-def find_cycles(graph):
 
-    vertices = set(graph.get_vertices())
-
-    start = vertices.pop()
-
-    stack = Stack()
-
-    def _find_cycles(graph, stack, current_vertex):
-        for av in graph.get_adjacent_vertices(current_vertex):
-            if av in stack:
-                # Found a cycle
-                pass

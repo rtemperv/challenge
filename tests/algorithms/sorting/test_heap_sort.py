@@ -1,6 +1,7 @@
 import unittest
+
 import random
-from src.topcoder.sorting import heap_sort
+from src.algorithms.sorting import heap_sort
 
 
 class TestHeapSort(unittest.TestCase):

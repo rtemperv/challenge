@@ -1,6 +1,7 @@
 import unittest
+
 import random
-from src.topcoder.sorting import radix_sort
+from src.algorithms.sorting import radix_sort
 
 
 class TestRadixSort(unittest.TestCase):

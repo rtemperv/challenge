@@ -1,13 +1,14 @@
-from src.structures import Graph
-from src.topcoder.dynamic.dijkstra import find_shortest_path
 import unittest
+
 import random
+from src.algorithms.graphs.dijkstra import find_shortest_path
+from src.structures import DirectedGraph
 
 
 class TestDijkstra(unittest.TestCase):
 
     def test_dijkstra(self):
-        g = Graph()
+        g = DirectedGraph()
 
         g.add_edge(1, 2, 2)
         g.add_edge(2, 1, 2)
@@ -31,7 +32,7 @@ class TestDijkstra(unittest.TestCase):
         assert path == [2, 4, 3, 5]
 
     def test_dijkstra_2(self):
-        g = Graph()
+        g = DirectedGraph()
 
         for i in range(200):
             g.add_vertex(i)

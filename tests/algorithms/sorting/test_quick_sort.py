@@ -1,6 +1,7 @@
 import unittest
+
 import random
-from src.topcoder.sorting import quick_sort
+from src.algorithms.sorting import quick_sort
 
 
 class TestQuickSort(unittest.TestCase):

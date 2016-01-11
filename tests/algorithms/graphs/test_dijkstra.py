@@ -1,7 +1,7 @@
 import unittest
-
+import sys
 import random
-from src.algorithms.graphs.dijkstra import find_shortest_path
+from src.algorithms.graphs.dijkstra import dijkstra
 from src.structures import DirectedGraph
 
 
@@ -25,7 +25,7 @@ class TestDijkstra(unittest.TestCase):
         g.add_edge(4, 5, 6)
         g.add_edge(5, 4, 6)
 
-        distance, path = find_shortest_path(g, 1, 5)
+        distance, path = dijkstra(g, 1, 5)
 
         assert distance == 8
 
@@ -43,7 +43,7 @@ class TestDijkstra(unittest.TestCase):
             if a != b:
                 g.add_edge(a, b, random.randint(1, 100))
 
-        distance, path = find_shortest_path(g, 1, 199)
+        distance, path = dijkstra(g, 1, 199)
 
         if path:
             cur_dist = 0
@@ -54,6 +54,10 @@ class TestDijkstra(unittest.TestCase):
                         cur_dist += edge.weight
                         break
                 start = i
+
+            if cur_dist == 0:
+                cur_dist = sys.maxsize
+
             assert cur_dist == distance
 
 

@@ -1,9 +1,10 @@
 from src.structures.graph import DirectedGraph
 from src.structures.stack import Stack
 import copy
+from typing import List
 
 
-def tarjan(graph: DirectedGraph):
+def tarjan(graph: DirectedGraph) -> List[List]:
     """
     Tarjan's Algorithm is an algorithm in graph theory for
     finding the strongly connected components of a directed graph.

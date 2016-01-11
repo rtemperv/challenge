@@ -2,9 +2,9 @@ from src.structures import UndirectedGraph, Queue
 import copy
 
 
-def contains_cycle(graph: UndirectedGraph):
+def contains_cycle(graph: UndirectedGraph) -> bool:
     """
-    Breath first cycle detection
+    Simple breadth first cycle detection for Undirected graphs
     """
     graph = copy.deepcopy(graph) # type: Graph
 

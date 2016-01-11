@@ -2,7 +2,7 @@ import unittest
 
 from src.algorithms.graphs.bfs_cyclical import contains_cycle
 
-from src.algorithms.graphs.kruskal import minimal_spanning_tree
+from src.algorithms.graphs.kruskal import kruskal
 from src.structures import UndirectedGraph
 
 
@@ -21,7 +21,7 @@ class TestKruskal(unittest.TestCase):
         self.graph = g
 
     def test_kruskal(self):
-        graph = minimal_spanning_tree(self.graph)
+        graph = kruskal(self.graph)
 
         assert not contains_cycle(graph)
 

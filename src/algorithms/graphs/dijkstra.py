@@ -1,14 +1,13 @@
 import sys
+from typing import List
 from src.structures import FibonacciHeap
 from src.structures import Graph
 
 
-def find_shortest_path(graph: Graph, start_node, end_node):
+def dijkstra(graph: Graph, start_node, end_node) -> (int, List):
     """
-    :param G: graph object
-    :type G: Graph
-    :type start_node:
-    :type end_node:
+    Dijkstras shortest path algorithm implementation
+    :return Returns a tuple of the distance of the shortest path and the nodes to reach the shortest path
     """
 
     # Min heap

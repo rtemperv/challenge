@@ -1,7 +1,7 @@
 from collections import namedtuple
 from itertools import chain
 import abc
-Edge = namedtuple("Edge", ['a', 'b', 'weight'])
+Edge = namedtuple("Edge", ['weight', 'a', 'b'])
 
 
 class Graph(object, metaclass=abc.ABCMeta):
@@ -17,7 +17,7 @@ class Graph(object, metaclass=abc.ABCMeta):
         self.directed = True
 
     def _add_edge(self, a, b, weight):
-        edge = Edge(a, b, weight)
+        edge = Edge(weight, a, b)
         self.adjacency_list[a].append(edge)
         self.adjacency_list[b].append(edge)
 

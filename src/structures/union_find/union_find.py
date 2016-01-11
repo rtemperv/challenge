@@ -27,7 +27,7 @@ class UnionFind(object):
 
         if self.ranks[root_a] > self.ranks[root_b]:
             self.parent_references[root_b] = root_a
-        if self.ranks[root_b] > self.ranks[root_a]:
+        elif self.ranks[root_b] > self.ranks[root_a]:
             self.parent_references[root_a] = root_b
         else:
             self.parent_references[root_a] = root_b

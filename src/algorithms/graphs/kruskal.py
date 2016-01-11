@@ -1,6 +1,7 @@
 from src.algorithms.graphs.bfs_cyclical import contains_cycle
 from src.structures import FibonacciHeap
 from src.structures import UndirectedGraph
+from src.structures import UnionFind
 
 
 def kruskal(graph: UndirectedGraph) -> UndirectedGraph:
@@ -11,17 +12,18 @@ def kruskal(graph: UndirectedGraph) -> UndirectedGraph:
     """
     spanning_tree = UndirectedGraph()
 
-    edges = graph.get_all_edges()
+    union_find = UnionFind(max(graph.get_vertices()) + 1)
 
-    heap = FibonacciHeap(map(lambda x: (x.weight, x), edges))
+    heap = FibonacciHeap(map(lambda x: (x.weight, x), graph.get_all_edges()))
 
     while not heap.is_empty():
 
         weight, edge = heap.pop()
-        spanning_tree.add_edge(*edge)
 
-        if contains_cycle(spanning_tree):
-            spanning_tree.delete_edge(edge.a, edge.b)
+        # Only add the edge if it will not create a cycle
+        if union_find.find(edge.a) != union_find.find(edge.b):
+            spanning_tree.add_edge(*edge)
+            union_find.union(edge.a, edge.b)
 
     return spanning_tree
 

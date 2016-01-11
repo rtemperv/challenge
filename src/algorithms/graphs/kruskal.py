@@ -1,4 +1,4 @@
-from src.algorithms.graphs.cyclical import contains_cycle
+from src.algorithms.graphs.bfs_cyclical import contains_cycle
 from src.structures import FibonacciHeap
 from src.structures import UndirectedGraph
 

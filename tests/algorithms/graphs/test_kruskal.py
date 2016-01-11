@@ -1,12 +1,12 @@
 import unittest
 
-from src.algorithms.graphs.cyclical import contains_cycle
+from src.algorithms.graphs.bfs_cyclical import contains_cycle
 
 from src.algorithms.graphs.kruskal import minimal_spanning_tree
 from src.structures import UndirectedGraph
 
 
-class TestTopologicalSort(unittest.TestCase):
+class TestKruskal(unittest.TestCase):
     def setUp(self):
         g = UndirectedGraph()
 
@@ -20,7 +20,7 @@ class TestTopologicalSort(unittest.TestCase):
 
         self.graph = g
 
-    def test_topological_sort(self):
+    def test_kruskal(self):
         graph = minimal_spanning_tree(self.graph)
 
         assert not contains_cycle(graph)

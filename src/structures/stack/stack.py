@@ -19,6 +19,9 @@ class Stack(object):
     def __contains__(self, item):
         return item in self._linked_list
 
+    def to_array(self):
+        return list(self._linked_list)[::-1]
+
     def push(self, value):
         with self._lock:
             self._linked_list.prepend(value)
@@ -27,9 +30,9 @@ class Stack(object):
         with self._lock:
             return self._linked_list.remove(0).value
 
-    def peek(self):
+    def peek(self, depth=0):
         with self._lock:
-            return self._linked_list.get(0).value
+            return self._linked_list.get(depth).value
 
     def is_empty(self):
         with self._lock:

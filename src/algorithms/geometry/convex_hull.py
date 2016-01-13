@@ -40,14 +40,12 @@ def graham(points: List) -> List:
     algorithm in 1972.The algorithm finds all vertices of the
     convex hull ordered along its boundary.
     """
-    points = points.copy()
 
     # Find the bottom left point and remove it from the set
     bottom_left_point = min(points, key=lambda x: (x[1], x[0]))
-    points.remove(bottom_left_point)
 
     # Put the points on a min heap by polar angle
-    polar_points = list(map(lambda x: (get_polar_angle(bottom_left_point, x), x), points))
+    polar_points = [(get_polar_angle(bottom_left_point, x), x) for x in points if x != bottom_left_point]
     point_heap = BinomialHeap(polar_points)
 
     # Push the first 3 elements on a stack

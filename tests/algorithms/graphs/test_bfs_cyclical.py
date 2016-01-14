@@ -1,6 +1,6 @@
 import unittest
 
-from src.algorithms.graphs.bfs_cyclical import contains_cycle
+from src.algorithms.graphs.detect_cycle import contains_cycle
 from src.structures import UndirectedGraph, DirectedGraph
 
 

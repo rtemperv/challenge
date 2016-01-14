@@ -7,3 +7,4 @@ from .stack import Stack
 from .tree import *
 from .heap import BinaryHeap, BinomialHeap, FibonacciHeap
 from .union_find import UnionFind
+from .geometry import Point

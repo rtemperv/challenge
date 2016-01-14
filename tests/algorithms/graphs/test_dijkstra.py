@@ -1,7 +1,7 @@
 import unittest
 import sys
 import random
-from src.algorithms.graphs.dijkstra import dijkstra
+from src.algorithms.graphs.shortest_path import dijkstra
 from src.structures import DirectedGraph
 
 

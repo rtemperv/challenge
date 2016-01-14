@@ -1,9 +1,11 @@
-from src.algorithms.geometry.convex_hull import jarvis, Point, graham
+from src.algorithms.geometry.convex_hull import jarvis, graham
+from src.structures import Point
 import unittest
 import random
 
 
 class TestConvexHull(unittest.TestCase):
+
     def setUp(self):
         self.points = [Point(-1, 0), Point(1, 1), Point(0, 1), Point(1, 0), Point(0.5, 0.5)]
 
@@ -28,13 +30,13 @@ class TestConvexHull(unittest.TestCase):
 
         assert set(hull) == {Point(-1, 0), Point(0, 1), Point(2, 2), Point(1, 0), Point(0, -2)}
 
-    def print_jarvis2(self):
+    def plot_hull(self):
         import matplotlib.pyplot as plt
         points = []
         for _ in range(100):
             points.append(Point(random.random() * 10, random.random() * 10))
 
-        hull = jarvis(points)
+        hull = graham(points)
 
         for point in points:
             if point not in hull:

@@ -1,5 +1,5 @@
 import unittest
-from src.algorithms.graphs.tarjan import tarjan
+from src.algorithms.graphs.strongly_connected_components import tarjan
 from src.structures import DirectedGraph
 
 

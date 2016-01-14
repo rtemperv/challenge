@@ -1,12 +1,15 @@
 from src.structures import DirectedGraph
-from typing import Dict
+from typing import Dict, Tuple, Any
 import sys
 
 
-def ford_fulkerson(graph: DirectedGraph, source, sink):
+def ford_fulkerson(graph: DirectedGraph, source, sink) -> Tuple[Dict[Any, int], int]:
     """
     In optimization theory, maximum flow problems involve finding a feasible flow through a
     single-source, single-sink flow network that is maximum.
+    :param graph: Directed graph with the capacity of each edge as the weight
+    :param source: Source node (from which the flow originates)
+    :param sink: Sink node (where the flow leaves the system
     """
 
     # Store the current flows in a dict

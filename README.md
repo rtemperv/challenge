@@ -31,3 +31,4 @@ Repo for algorithm and data structure exercises in python 3
 * Topological sort (kahn)
 * Convex hull (jarvis/graham)
 * Base conversion
+* Exponentiation by squaring

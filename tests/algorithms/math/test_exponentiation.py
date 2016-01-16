@@ -1,6 +1,6 @@
-
 import unittest
-from src.topcoder.math.exponentiation import exponentiation_by_squaring
+
+from src.algorithms.math import exponentiation_by_squaring
 
 
 class TestExponentiation(unittest.TestCase):

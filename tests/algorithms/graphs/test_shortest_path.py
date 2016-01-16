@@ -1,13 +1,13 @@
 import unittest
 import sys
 import random
-from src.algorithms.graphs.shortest_path import dijkstra
+from src.algorithms import dijkstra, floyd_warshal
 from src.structures import UndirectedGraph, DirectedGraph
 
 
-class TestDijkstra(unittest.TestCase):
+class TestShortestPath(unittest.TestCase):
 
-    def test_dijkstra_directed(self):
+    def setUp(self):
         g = DirectedGraph()
 
         g.add_edge(1, 2, 2)
@@ -17,14 +17,8 @@ class TestDijkstra(unittest.TestCase):
         g.add_edge(3, 4, 1)
         g.add_edge(3, 5, 4)
         g.add_edge(4, 5, 6)
+        self.directed_graph = g
 
-        distance, path = dijkstra(g, 1, 5)
-
-        assert distance == 9
-
-        assert path == [2, 4, 5]
-
-    def test_dijkstra_undirected(self):
         g = UndirectedGraph()
 
         g.add_edge(1, 2, 2)
@@ -34,8 +28,20 @@ class TestDijkstra(unittest.TestCase):
         g.add_edge(3, 4, 1)
         g.add_edge(3, 5, 4)
         g.add_edge(4, 5, 6)
+        self.undirected_graph = g
 
-        distance, path = dijkstra(g, 1, 5)
+    def test_dijkstra_directed(self):
+
+
+        distance, path = dijkstra(self.directed_graph, 1, 5)
+
+        assert distance == 9
+
+        assert path == [2, 4, 5]
+
+    def test_dijkstra_undirected(self):
+
+        distance, path = dijkstra(self.undirected_graph, 1, 5)
 
         assert distance == 8
 
@@ -70,4 +76,16 @@ class TestDijkstra(unittest.TestCase):
 
             assert cur_dist == distance
 
+    def test_floyd_warshal_directed(self):
+        distances = floyd_warshal(self.directed_graph)
+        assert (1, 5, 9) in distances
 
+        assert not any(filter(lambda x: x[0] == 5 and x[1] == 1, distances))
+
+    def test_floyd_warshal(self):
+        distances = floyd_warshal(self.undirected_graph)
+        assert (1, 5, 8) in distances
+        
+        assert (5, 1, 8) in distances
+
+        assert any(filter(lambda x: x[0] == 5 and x[1] == 1, distances))

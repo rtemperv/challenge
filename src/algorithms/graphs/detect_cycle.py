@@ -16,7 +16,7 @@ def contains_cycle(graph: UndirectedGraph) -> bool:
     while not queue.is_empty():
         vertex = queue.dequeue()
 
-        for neighbour in graph.get_adjacent_vertices(vertex):
+        for neighbour in graph.get_successive_vertices(vertex):
             if neighbour in visited_nodes:
                 return True
             visited_nodes.add(neighbour)

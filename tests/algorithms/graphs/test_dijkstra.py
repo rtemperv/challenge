@@ -2,28 +2,38 @@ import unittest
 import sys
 import random
 from src.algorithms.graphs.shortest_path import dijkstra
-from src.structures import DirectedGraph
+from src.structures import UndirectedGraph, DirectedGraph
 
 
 class TestDijkstra(unittest.TestCase):
 
-    def test_dijkstra(self):
+    def test_dijkstra_directed(self):
         g = DirectedGraph()
 
         g.add_edge(1, 2, 2)
-        g.add_edge(2, 1, 2)
         g.add_edge(1, 3, 6)
-        g.add_edge(3, 1, 6)
         g.add_edge(2, 3, 3)
-        g.add_edge(3, 2, 3)
         g.add_edge(2, 4, 1)
-        g.add_edge(4, 2, 1)
         g.add_edge(3, 4, 1)
-        g.add_edge(4, 3, 1)
         g.add_edge(3, 5, 4)
-        g.add_edge(5, 3, 4)
         g.add_edge(4, 5, 6)
-        g.add_edge(5, 4, 6)
+
+        distance, path = dijkstra(g, 1, 5)
+
+        assert distance == 9
+
+        assert path == [2, 4, 5]
+
+    def test_dijkstra_undirected(self):
+        g = UndirectedGraph()
+
+        g.add_edge(1, 2, 2)
+        g.add_edge(1, 3, 6)
+        g.add_edge(2, 3, 3)
+        g.add_edge(2, 4, 1)
+        g.add_edge(3, 4, 1)
+        g.add_edge(3, 5, 4)
+        g.add_edge(4, 5, 6)
 
         distance, path = dijkstra(g, 1, 5)
 

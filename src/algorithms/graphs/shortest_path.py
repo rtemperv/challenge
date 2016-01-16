@@ -31,17 +31,18 @@ def dijkstra(graph: Graph, start_node, end_node) -> (int, List):
             # Only unconnected vertices are left or we found the minimal distance
             break
 
-        outgoing_edges = filter(lambda x: x.a == vertex, graph.get_edges(vertex))
+        for outgoing_edge in graph.get_outgoing_edges(vertex):
 
-        for outgoing_edge in outgoing_edges:
-            if outgoing_edge in visited_nodes:
+            next_vertex = outgoing_edge.a if outgoing_edge.a != vertex else outgoing_edge.b
+
+            if next_vertex in visited_nodes:
                 continue
 
-            if distance + outgoing_edge.weight < distances[outgoing_edge.b]:
-                distances[outgoing_edge.b] = distance + outgoing_edge.weight
-                paths[outgoing_edge.b] = paths[outgoing_edge.a] + [outgoing_edge.b]
+            if distance + outgoing_edge.weight < distances[next_vertex]:
+                distances[next_vertex] = distance + outgoing_edge.weight
+                paths[next_vertex] = paths[vertex] + [next_vertex]
 
-                pq.insert((distance + outgoing_edge.weight, outgoing_edge.b))
+                pq.insert((distance + outgoing_edge.weight, next_vertex))
 
         visited_nodes.add(vertex)
 

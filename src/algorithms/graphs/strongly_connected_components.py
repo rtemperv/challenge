@@ -35,7 +35,7 @@ def tarjan(graph: DirectedGraph) -> List[List]:
         index += 1
         stack.push(current_node)
 
-        for vertex in graph.get_adjacent_vertices(current_node):
+        for vertex in graph.get_successive_vertices(current_node):
             if vertex not in node_indices:
                 strong_connect(vertex)
                 node_lowlinks[current_node] = min(node_lowlinks[current_node], node_lowlinks[vertex])

@@ -36,8 +36,11 @@ class Graph(object, metaclass=abc.ABCMeta):
         if not self.edge_exists(a, b):
             self._add_edge(a, b, weight)
 
+    def get_successive_vertices(self, vertex):
+        return [edge.a if edge.a != vertex else edge.b for edge in self.get_outgoing_edges(vertex)]
+
     @abc.abstractmethod
-    def get_adjacent_vertices(self, vertex):
+    def get_outgoing_edges(self, vertex):
         pass
 
     def get_edges(self, vertex):
@@ -61,8 +64,8 @@ class DirectedGraph(Graph):
     def __init__(self):
         super(DirectedGraph, self).__init__()
 
-    def get_adjacent_vertices(self, vertex):
-        return [edge.b for edge in self.adjacency_list[vertex] if edge.a == vertex]
+    def get_outgoing_edges(self, vertex):
+        return [edge for edge in self.adjacency_list[vertex] if edge.a == vertex]
 
     def edge_exists(self, a, b):
         if a not in self.adjacency_list:
@@ -86,8 +89,8 @@ class UndirectedGraph(Graph):
     def __init__(self):
         super(UndirectedGraph, self).__init__()
 
-    def get_adjacent_vertices(self, vertex):
-        return [edge.b if edge.a == vertex else edge.a for edge in self.adjacency_list[vertex]]
+    def get_outgoing_edges(self, vertex):
+        return [edge for edge in self.adjacency_list[vertex]]
 
     def edge_exists(self, a, b):
         if a not in self.adjacency_list:

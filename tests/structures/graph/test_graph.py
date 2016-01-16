@@ -29,9 +29,9 @@ class TestGraph(unittest.TestCase):
 
     def test_directed_graph(self):
 
-        assert len(self.directed.get_adjacent_vertices(4)) == 1
+        assert len(self.directed.get_successive_vertices(4)) == 1
 
-        assert len(self.undirected.get_adjacent_vertices(4)) == 3
+        assert len(self.undirected.get_successive_vertices(4)) == 3
 
         assert self.undirected.edge_exists(4, 3)
         assert not self.directed.edge_exists(4, 3)

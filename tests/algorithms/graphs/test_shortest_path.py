@@ -79,13 +79,12 @@ class TestShortestPath(unittest.TestCase):
     def test_floyd_warshal_directed(self):
         distances = floyd_warshal(self.directed_graph)
         assert (1, 5, 9) in distances
-
-        assert not any(filter(lambda x: x[0] == 5 and x[1] == 1, distances))
+        
+        assert not any(filter(lambda x: x[0] > x[1], distances))
 
     def test_floyd_warshal(self):
         distances = floyd_warshal(self.undirected_graph)
         assert (1, 5, 8) in distances
-        
+
         assert (5, 1, 8) in distances
 
-        assert any(filter(lambda x: x[0] == 5 and x[1] == 1, distances))

@@ -25,7 +25,7 @@ def tarjan(graph: DirectedGraph) -> List[List]:
 
     index = 0
 
-    # Recursive strong connect function
+    # Recursive strong connect function (DFS)
     def strong_connect(current_node):
         nonlocal index
 

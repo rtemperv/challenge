@@ -21,6 +21,7 @@ def topological_sort(graph: DirectedGraph) -> List:
         if not graph.has_incoming_edge(vertex):
             nodes.enqueue(vertex)
 
+    # Keep removing nodes and edges while nodes with no incoming edges exist
     while not nodes.is_empty():
         node = nodes.dequeue()
         sorted_nodes.append(node)

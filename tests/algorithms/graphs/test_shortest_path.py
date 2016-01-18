@@ -32,7 +32,6 @@ class TestShortestPath(unittest.TestCase):
 
     def test_dijkstra_directed(self):
 
-
         distance, path = dijkstra(self.directed_graph, 1, 5)
 
         assert distance == 9
@@ -79,7 +78,7 @@ class TestShortestPath(unittest.TestCase):
     def test_floyd_warshal_directed(self):
         distances = floyd_warshal(self.directed_graph)
         assert (1, 5, 9) in distances
-        
+
         assert not any(filter(lambda x: x[0] > x[1], distances))
 
     def test_floyd_warshal(self):

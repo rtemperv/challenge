@@ -30,6 +30,7 @@ def get_euclidian_distance(a: Point, b: Point):
 def get_internal_angle(a: Point, b: Point, c: Point):
     """
     Compute the inner angle between [a, b] and [b, c]
+    Based on cosine rule: c^2 = a^2 + b^2 + 2 * a * b * cos(angle)
     """
     ab = get_euclidian_distance(a, b)
     bc = get_euclidian_distance(b, c)

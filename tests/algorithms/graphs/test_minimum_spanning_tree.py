@@ -2,11 +2,11 @@ import unittest
 
 from src.algorithms.graphs.detect_cycle import contains_cycle
 
-from src.algorithms.graphs.minimum_spanning_tree import kruskal
+from src.algorithms.graphs.minimum_spanning_tree import kruskal, prim
 from src.structures import UndirectedGraph, Edge
 
 
-class TestKruskal(unittest.TestCase):
+class TestMinimumSpanningTree(unittest.TestCase):
     def setUp(self):
         g = UndirectedGraph()
 
@@ -29,3 +29,11 @@ class TestKruskal(unittest.TestCase):
 
         assert len(graph.get_all_edges()) == len(graph.get_vertices()) - 1
 
+    def test_prim(self):
+        graph = prim(self.graph)
+
+        assert not contains_cycle(graph)
+
+        assert {Edge(2, 1, 2), Edge(1, 3, 4), Edge(3, 2, 3), Edge(4, 3, 5)} == set(graph.get_all_edges())
+
+        assert len(graph.get_all_edges()) == len(graph.get_vertices()) - 1

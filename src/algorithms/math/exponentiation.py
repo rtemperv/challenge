@@ -1,3 +1,4 @@
+import numpy as np
 
 
 def exponentiation_by_squaring(n, a):
@@ -15,7 +16,13 @@ def exponentiation_by_squaring(n, a):
         return a
 
     if n % 2 == 1:
-        return a * exponentiation_by_squaring((n-1)/2, a**2)
+        if isinstance(a, int):
+            return a * exponentiation_by_squaring((n-1)/2, a**2)
+        if isinstance(a, np.ndarray):
+            return np.dot(a, exponentiation_by_squaring((n - 1) / 2, np.dot(a, a)))
 
     else:
-        return exponentiation_by_squaring(n/2, a**2)
+        if isinstance(a, int):
+            return exponentiation_by_squaring(n/2, a**2)
+        if isinstance(a, np.ndarray):
+            return exponentiation_by_squaring(n / 2, np.dot(a, a))

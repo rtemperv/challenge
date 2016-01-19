@@ -49,16 +49,16 @@ class TestShortestPath(unittest.TestCase):
     def test_dijkstra_2(self):
         g = DirectedGraph()
 
-        for i in range(200):
+        for i in range(100):
             g.add_vertex(i)
 
-        for _ in range(500):
-            a = random.randint(1, 200)
-            b = random.randint(1, 200)
+        for _ in range(250):
+            a = random.randint(1, 100)
+            b = random.randint(1, 100)
             if a != b:
                 g.add_edge(a, b, random.randint(1, 100))
 
-        distance, path = dijkstra(g, 1, 199)
+        distance, path = dijkstra(g, 1, 100)
 
         if path:
             cur_dist = 0

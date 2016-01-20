@@ -25,10 +25,13 @@ Repo for algorithm and data structure exercises in python 3
 * Event queue
 * BFS cycle detection
 * Maximum flow (ford_fulkerson)
-* Minimum spanning tree (kruskal)
-* Shortest path (dijkstra)
+* Minimum spanning tree (kruskal/prim)
+* Shortest path (dijkstra/floyd warshal)
 * Strongly connected components (tarjan)
 * Topological sort (kahn)
 * Convex hull (jarvis/graham)
 * Base conversion
 * Exponentiation by squaring
+* Fast fourier transform
+* Knutt Moris Pratt string searching
+* Nth Fibonacci calculation using matrix factorization

@@ -1,0 +1,56 @@
+-- Example 0
+4
+BBBW
+BWWW
+BWWW
+WWWW
+3
+
+Possible
+-- Example 1
+2
+BW
+WB
+2
+
+Impossible
+-- Example 2
+6
+BWBWBB
+WBWBBB
+BWBWBB
+WBWBBB
+BBBBBB
+BBBBBB
+2
+
+Possible
+-- Example 3
+6
+BWBWBB
+WBWBWB
+BWBWBB
+WBWBWB
+BWBWBB
+BBBBBB
+2
+
+Impossible
+-- Example 4
+6
+BWBWBB
+WBWBWB
+BWBWBB
+WBWBWB
+BWBWBB
+BBBBBB
+1
+
+Possible
+-- Example 5
+2
+BB
+BB
+2
+
+Possible

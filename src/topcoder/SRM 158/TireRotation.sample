@@ -1,0 +1,25 @@
+-- Example 0
+ABCD
+ABCD
+
+1
+-- Example 1
+ABCD
+DCAB
+
+2
+-- Example 2
+ABCD
+CDBA
+
+4
+-- Example 3
+ABCD
+ABDC
+
+-1
+-- Example 4
+ZAXN
+XNAZ
+
+4

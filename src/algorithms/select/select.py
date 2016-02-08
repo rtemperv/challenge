@@ -22,6 +22,15 @@ def quick_select(array: List, k: int):
     if k < len(smaller):
         return quick_select(smaller, k)
 
+def median(l):
+    size = len(l)
+
+    if size % 2 == 1:
+        return quick_select(l, (size - 1)/2)
+
+    else:
+        return (quick_select(l, size/2) + quick_select(l, (size/2) - 1))/2
+
 
 def heap_smallest(array: List, k: int):
     """

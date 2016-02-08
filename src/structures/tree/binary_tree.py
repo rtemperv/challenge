@@ -19,7 +19,7 @@ class BinaryNode(object):
         self.rnode = rnode
         self.value = value
 
-        self.payload = None
+        self.payload = payload
 
     @property
     def lnode(self) -> Optional['BinaryNode']:
@@ -172,137 +172,6 @@ class BinaryNode(object):
                 q.dequeue()
 
         return root_node
-
-
-class BinarySearchNode(BinaryNode):
-    """
-    Extend BinaryNode to enforce binary search tree ordering
-    """
-
-    def __init__(self, value, *, lnode=None, rnode=None, payload=None):
-        super().__init__(value, lnode=lnode, rnode=rnode, payload=None)
-
-    # Overload the lnode and rnode properties to check if the constraints are not violated
-
-    @property
-    def lnode(self) -> Optional['BinaryNode']:
-        return BinaryNode.lnode.fget(self)
-
-    @lnode.setter
-    def lnode(self, node: Optional['BinaryNode']):
-        lower_bound = self.get_lower_bound()
-        if isinstance(node, BinarySearchNode) and (
-                (lower_bound and node.min_value < lower_bound) or node.max_value >= self.value):
-            raise ValueError('Binary search tree constraints violated')
-
-        BinaryNode.lnode.fset(self, node)
-
-    @property
-    def rnode(self) -> Optional['BinaryNode']:
-        return BinaryNode.rnode.fget(self)
-
-    @rnode.setter
-    def rnode(self, node: Optional['BinaryNode']):
-        upper_bound = self.get_upper_bound()
-        if isinstance(node, BinarySearchNode) and (
-                (upper_bound and node.max_value >= upper_bound) or node.min_value < self.value):
-            raise ValueError('Binary search tree constraints violated')
-
-        BinaryNode.rnode.fset(self, node)
-
-    def get_upper_bound(self):
-        """
-        Find the lower bound for the right child of this node
-        """
-        node = self.parent
-        old_node = self
-        while node:
-            if node.lnode == old_node:
-                return node.value
-            old_node = node
-            node = old_node.parent
-
-    def get_lower_bound(self):
-        """
-        Find the lower bound for the left child of this node
-        """
-        node = self.parent
-        old_node = self
-        while node:
-            if node.rnode == old_node:
-                return node.value
-            old_node = node
-            node = old_node.parent
-
-
-class BinarySearchTree(object):
-    """
-    Wrapper around a binary search node with insert search and remove instructions
-    """
-
-    def __init__(self):
-        self.root = None
-
-    def _insert(self, node: BinarySearchNode):
-        """
-        Insert a node in the binary search tree
-        """
-        if not self.root:
-            self.root = node
-            return
-
-        parent_node = None
-        next_node = self.root
-        is_smaller = False
-
-        while next_node:
-            if node.value >= next_node.value:
-                parent_node, next_node, is_smaller = next_node, next_node.rnode, False
-            else:
-                parent_node, next_node, is_smaller = next_node, next_node.lnode, True
-
-        if is_smaller:
-            parent_node.lnode = node
-        else:
-            parent_node.rnode = node
-
-    def insert(self, value, payload):
-        self._insert(BinarySearchNode(value, payload=payload))
-
-    def _search(self, value):
-
-        if not self.root:
-            raise IndexError('Value not present in binary tree')
-
-        current_node = None
-
-        while current_node.value != value and current_node is not None:
-            current_node = current_node.rnode if current_node.value >= value else current_node.lnode
-
-        if current_node:
-            return current_node
-
-        raise IndexError('Value not present in binary tree')
-
-    def search(self, value):
-
-        return self._search(value).payload
-
-    def remove(self, value):
-
-        node = self._search(value)
-
-        # No children
-        if not node.lnode and not node.rnode:
-
-            pass
-
-        # Two childen
-        elif node.lnode and node.rnode:
-            pass
-
-        else:
-
 
 
 

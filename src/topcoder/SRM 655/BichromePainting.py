@@ -2,8 +2,42 @@
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
 class BichromePainting:
+
     def isThatPossible(self, board, k):
-        return ""
+
+        size = len(board)
+
+        board = [list(row) for row in board]
+
+        if k > size:
+            return -1
+
+        changes = True
+
+        while changes:
+            changes = False
+            for i in range(size - k + 1):
+                for j in range(size - k + 1):
+                    w = b = 0
+                    for x in range(k):
+                        for y in range(k):
+                            if board[j + y][i + x] == 'W':
+                                w += 1
+                            if board[j + y][i + x] == 'B':
+                                b += 1
+                    if w and b: continue
+                    if not w and not b: continue
+
+                    changes = True
+                    for x in range(k):
+                        for y in range(k):
+                            board[j + y][i + x] = '?'
+
+        return 'Possible' if all([board[y][x] == '?' for x in range(size) for y in range(size)]) else 'Impossible'
+
+
+
+
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{

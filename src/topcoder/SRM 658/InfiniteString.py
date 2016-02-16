@@ -3,7 +3,13 @@ import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
 class InfiniteString:
     def equal(self, s, t):
-        return ""
+
+        if not s or not t:
+            return "Not equal"
+
+        lcm = (len(s) * len(t)) / math.gcd(len(s), len(t))
+
+        return "Equal" if int(lcm/len(s))*s == int(lcm/len(t))*t else "Not equal"
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{

@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
+from src.algorithms.dynamic.longest_increasing_subsequence import longest_increasing_subsequence
+
 
 class ThePriceIsRight:
     def howManyReveals(self, prices):
-        return ()
+        return (len(longest_increasing_subsequence(prices)), 0)
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{

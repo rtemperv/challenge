@@ -1,9 +1,22 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
+from datetime import timedelta,time
 
 class Iditarod:
+    def __init__(self):
+        self.start_date = timedelta(hours=8, days=0)
+
     def avgMinutes(self, times):
-        return 0
+        minutes = [self.__hour_to_minutes_from_start(x) for x in times]
+        print(minutes)
+        return round(sum(minutes)/len(minutes))
+
+    def __hour_to_minutes_from_start(self, stop):
+        time_difference = self.__parse_date(stop) - self.start_date
+        return time_difference.days * 1440 + time_difference.seconds / 60
+
+    def __parse_date(self, date):
+        return time.strptime(date, "%H:%M %p, DAY %j")
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{

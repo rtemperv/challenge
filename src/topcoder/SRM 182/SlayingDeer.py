@@ -3,7 +3,38 @@ import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
 class SlayingDeer:
     def getTime(self, A, B, C):
-        return 0
+
+        deer_position = C
+        guy_position = 0
+        minutes = 0
+        deer_is_resting = False
+        deer_state = 0
+
+        # One minute
+        while guy_position < deer_position:
+
+            if minutes == 45 and deer_position - guy_position > C:
+                return -1
+
+            if not deer_is_resting:
+
+                if deer_state == 30:
+                    deer_is_resting = True
+                    deer_state = 0
+            else:
+                if deer_state == 15:
+                    deer_is_resting = False
+                    deer_state = 0
+
+            if not deer_is_resting:
+                deer_position += B
+
+            guy_position += A
+            minutes += 1
+            deer_state += 1
+        return minutes
+
+
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{

@@ -3,7 +3,40 @@ import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
 class WaterTank:
     def minOutputRate(self, t, x, C):
-        return 0.0
+        """
+        Binary search solution
+        """
+        water_inflow = []
+        for index, interval in enumerate(t):
+            for _ in range(interval):
+                water_inflow.append(x[index])
+
+        # Binary search
+        upper_limit = max(x)
+        lower_limit = 0
+
+        for _ in range(50):
+            middle = (upper_limit + lower_limit)/2
+
+            if self.check(water_inflow, C, middle):
+                upper_limit = middle
+            else:
+                lower_limit = middle
+
+        return upper_limit
+
+    def check(self, water_inflow, C, outflow):
+        """
+        Check if the tank would overflow
+        """
+        tank = 0
+        for x in water_inflow:
+            tank += x
+
+            tank = max(0, tank - outflow)
+            if tank > C:
+                return False
+        return True
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{

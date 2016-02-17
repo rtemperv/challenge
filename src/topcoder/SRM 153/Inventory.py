@@ -3,7 +3,13 @@ import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
 class Inventory:
     def monthlyOrder(self, sales, daysAvailable):
-        return 0
+
+        expected_sales = [sale * (30 / days) for sale, days in zip(sales, daysAvailable) if days]
+
+        # Calculate the average expected sales, deduct a small number to account for double imprecision
+        return math.ceil((sum(expected_sales) / len(expected_sales)) - 1e-09)
+
+
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{

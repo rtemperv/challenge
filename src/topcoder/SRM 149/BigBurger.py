@@ -1,9 +1,28 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
+from src.structures.queue import Queue
 
 class BigBurger:
     def maxWait(self, arrival, service):
-        return 0
+        q = Queue(data=zip(arrival,service))
+        current_time = 0
+        max_waiting_time = 0
+        while not q.is_empty():
+
+            arrival, service = q.dequeue()
+            waiting_time = 0
+
+            if arrival > current_time:
+                current_time = arrival
+
+            waiting_time += current_time - arrival
+
+            current_time += service
+            max_waiting_time = max(max_waiting_time, waiting_time)
+
+        return max_waiting_time
+
+
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{

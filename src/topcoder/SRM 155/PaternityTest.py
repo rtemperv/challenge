@@ -3,7 +3,28 @@ import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
 class PaternityTest:
     def possibleFathers(self, child, mother, men):
-        return ()
+        return [index for index, x in enumerate(men) if self.is_possible_father(child, mother, x)]
+
+    def is_possible_father(self, child, mother, father):
+        mother_matches = {(index, x) for index, x in enumerate(child) if child[index] == mother[index]}
+        father_matches = {(index, x) for index, x in enumerate(child) if child[index] == father[index]}
+
+        mother_only = len(mother_matches - father_matches)
+        father_only = len(father_matches - mother_matches)
+
+        both = len(mother_matches & father_matches)
+
+        threshold = len(child)/2
+
+        if threshold > mother_only + both:
+            return False
+
+        both -= max(0, threshold - mother_only)
+
+        if threshold > father_only + both:
+            return False
+
+        return True
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{

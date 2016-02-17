@@ -3,7 +3,45 @@ import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
 class CheatCode:
     def matches(self, keyPresses, codes):
-        return ()
+        return [index for index, code in enumerate(codes) if self.single_matches(keyPresses, code)]
+
+
+    def single_matches(self, keyPresses, code):
+        """
+        Based on Levenstein distance algorithm
+        """
+        distance_matrix = [[None for _ in range(len(keyPresses) + 1)] for _ in range(len(code) + 1)]
+
+        if len(keyPresses) == 0:
+            return False
+
+        width = len(keyPresses)
+        height = len(code)
+
+        # We want to ignore any prefixes or postfixes for the keypresses string
+        for i in range(height + 1):
+            distance_matrix[i][0] = sys.maxsize
+        for i in range(width + 1):
+            distance_matrix[0][i] = 0
+
+        for i in range(1, height + 1):
+            for j in range(1, width + 1):
+
+                distance_matrix[i][j] = min(
+                    distance_matrix[i - 1][j - 1] if keyPresses[j - 1] == code[i - 1] else sys.maxsize,
+                    distance_matrix[i][j-1] if j > 1 and keyPresses[j - 1] == keyPresses[j - 2] else sys.maxsize
+                )
+        if any(map(lambda x: x == 0, distance_matrix[-1])):
+            return True
+        return False
+
+    def print_matrix(self, code, keypresses, matrix):
+        print()
+        print(" ".join(list("  " + keypresses)))
+        print("  " + " ".join([("0" if i == 0 else "X") for i in matrix[0]]))
+        for index, x in enumerate(code):
+            print(x + " " + " ".join([("0" if i == 0 else "X") for i in matrix[index + 1]]))
+
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{

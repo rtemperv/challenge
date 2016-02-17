@@ -3,7 +3,23 @@ import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
 class LeaguePicks:
     def returnPicks(self, position, friends, picks):
-        return ()
+
+        reverse_state = False
+        current_max_pick = 0
+        my_picks = []
+
+        while True:
+            pos = position if not reverse_state else friends - position + 1
+
+            if pos > picks:
+                break
+
+            my_picks.append(current_max_pick + pos)
+            current_max_pick += friends
+            reverse_state = not reverse_state
+            picks -= friends
+        return my_picks
+
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{

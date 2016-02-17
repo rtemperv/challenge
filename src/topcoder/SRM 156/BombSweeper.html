@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>TopCoder SRM 156 - 300: BombSweeper</title>
+    
+    <link type="image/x-icon" rel="shortcut icon" href="http://www.topcoder.com/i/favicon.ico"/>
+    
+
+    
+    <style type="text/css">
+        /* font */
+body {
+    font-family: Helvetica, Arial, Verdana, sans-serif;
+    font-size: 16px;
+    line-height: 1.2em;
+}
+ul.constraints > li:before, ul.notes > li:before {
+    font-family: monospace;
+    font-weight: normal;
+}
+.heading {
+    font-weight: bold;
+    font-size: 175%;
+    line-height: 1.2em;
+}
+.section .section-title {
+    font-weight: bold;
+    font-size: 125%;
+}
+ol.testcases > li:before {
+    font-family: monospace;
+}
+type {
+    font-weight: bold;
+    font-family: monospace;
+}
+li.testcase .data {
+    font-family: monospace;
+    line-height: 1.5em;
+}
+
+/* layout */
+.heading {
+    margin-top: 0.1em;
+    margin-bottom:0.1em;
+    text-align: center;
+}
+.section .section-title {
+    margin-top : 1em;
+    margin-bottom: 1em;
+}
+.problem-intro, note, user-constraint {
+    padding-left: 1.25em;
+}
+
+/* Lists */
+ul.constraints, ul.notes, ul.variables, ul.problem-definition-lines {
+    list-style-type: none;
+    padding: 0px;
+}
+ul.constraints > li:before {
+    content: "-";
+    position:relative;
+    margin-left: 0px; /* optional, for multiline li element */
+    left: 0.625em;
+}
+ul.notes > li:before {
+    content: "-";
+    position:relative;
+    margin-left: 0px; /* optional, for multiline li element */
+    left: 0.625em;
+}
+
+/* Testcases */
+li.testcase {
+    line-height: 1.1em;
+    padding-top: 0.625em;
+    padding-bottom: 0.625em;
+    overflow: auto;
+}
+li.testcase > .testcase-content > div { padding-bottom: 0.5em; padding-left: 1em; }
+
+li.testcase .testcase-comment {
+    margin: 0;
+    padding-left: 1em;
+}
+.testcase-comment p:first-child { margin-top: 0; }
+.testcase-comment p:last-child { margin-bottom: 0; }
+
+li.testcase .testcase-content {
+    margin: 0.31em;
+}
+
+/* Data and variables */
+.testcase-output {
+    padding: 0.2em 1em 0.2em 0em;
+}
+.variables, .testcase-output {
+    margin-left: 0.5em;
+    display: table;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+.variable {
+    display: table-row;
+}
+.variable .name {
+    padding: 0.2em 0em 0.2em 1em;
+    font-weight: bold;
+    display: table-cell;
+    text-align: right;
+}
+.testcase-output .prefix {
+    padding: 0.2em 0em 0.2em 1em;
+    display: table-cell;
+}
+.testcase-output .prefix:after {
+    content : ":";
+    padding-right: 0.5em;
+}
+.variable .name:after {
+    font-weight: bold;
+    content : ":";
+    padding-right: 0.5em;
+}
+.variable .value, .testcase-output .value {
+    padding: 0.2em 1em 0.2em 0em;
+    display: table-cell;
+}
+ol.testcases {
+    padding: 0px;
+    counter-reset: test_number -1;
+}
+ol.testcases > li {
+    list-style:none;
+}
+ol.testcases > li:before {
+    counter-increment:test_number;
+    display: block;
+    clear: both;
+    content:counter(test_number) ")";
+    color: inherit;
+    background: inherit;
+}
+
+/* Problem Definition */
+.problem-definition, .problem-limits {
+    padding-left: 1.25em;
+}
+.problem-definition-lines, .limit-lines {
+    display: table;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 0px;
+}
+.definition-line, .limit-line {
+    display: table-row;
+    height: 1.5em;
+    overflow: auto;
+}
+.limit-name:after {
+    content: ":";
+    margin-right: 1em;
+}
+.definition-name, .definition-value, .limit-name, .limit-value {
+    display: table-cell;
+}
+.definition-value {
+    padding-left: 0.5em;
+}
+.definition-name:after {
+    content: ":";
+}
+#contest-division:before {
+    content: "Div ";
+}
+#problem-score:before {
+    content: "- Problem ";
+}
+#problem-name {
+    display: block;
+}
+
+/* Tags, hidden default */
+.tag {
+    visibility: hidden;
+    position: absolute;
+}
+
+        body {
+    /* font color */
+    color: #333333;
+    /* background color */
+    background-color: white;
+}
+.section .section-title {
+    /* title color */
+    color: black;
+}
+li.testcase .data {
+    /* highlight color */
+    background: #eee;
+}
+
+    </style>
+    
+    
+    
+
+</head>
+
+<body>
+    <h1 class="heading">
+        <span id='contest-name'>SRM 156</span>
+        <span id='contest-division'>1</span>
+        <span id='problem-score'>300</span>
+        <span id='problem-name'>BombSweeper</span>
+    </h1>
+
+    <hr />
+
+    <!-- Problem Statement -->
+    <div class="section">
+        <h2 class="section-title">Problem Statement</h2>
+        <div class="problem-intro">
+            <intro><p>The game of BombSweeper is a single-player game played on a rectangular grid.  Each square in the grid is either a bomb (represented by 'B') or empty space (represented by '.').  The true identity of each square is hidden when the game begins.  The object of the game is to correctly determine both the number of bombs on the board and their positions.</p>
+
+<p>You are trying to write a program which predicts the percent likelihood that you will win a given game of BombSweeper.  You've recently become so good at the game that your success or failure depends only on your first few moves.  To start, you pick a random square on the gameboard and uncover it.  If the square you uncover is a bomb, you lose the game.  If the square is not a bomb, but one or more of its horizontal, vertical, and diagonal neighbors is, you are no better off than when you started and you must take another turn.  If the square is not a bomb, and none of its (up to) eight neighbors are bombs either, then you win the game.</p>
+
+<p>Given a <type>String[]</type> <b>board</b>, representing the game board, return a number between 0.0 and 100.0, inclusive, representing the percent likelihood of you winning the game.</p></intro>
+        </div>
+    </div>
+    
+    <!-- Problem definition -->
+    
+    <div class="section" id="definition">
+        <h2 class="section-title">Definition</h2>
+        <div class="problem-definition">
+            <ul class="problem-definition-lines">
+                <li class="definition-line" id='class-line'>
+                    <span class='definition-name'>Class</span>
+                    <span class='definition-value'>BombSweeper</span>
+                </li>
+                <li class="definition-line" id='method-line'>
+                    <span class='definition-name'>Method</span>
+                    <span class='definition-value'>winPercentage</span>
+                </li>
+                <li class="definition-line" id='parameters-line'>
+                    <span class='definition-name'>Parameters</span>
+                    <span class='definition-value'>
+                    
+                        tuple(string)
+                    
+                    </span>
+                </li>
+                <li class="definition-line" id='returns-line'>
+                    <span class='definition-name'>Returns</span>
+                    <span class='definition-value'>
+                        float
+                    </span>
+                </li>
+                <li class="definition-line" id='signature-line'>
+                    <span class='definition-name'>Method signature</span>
+                    <span class='definition-value'>
+                        def winPercentage(self, board)
+                    </span>
+                </li>
+            </ul>
+            <div class="problem-definition-public-tip">(be sure your method is public)</div>
+        </div>        
+    </div>
+    
+
+    <!-- Limits -->
+    <div class="section">
+        <h2 class="section-title">Limits</h2>
+        <div class='problem-limits'>
+            <ul class="limit-lines">
+                <li class='limit-line'>
+                    <span class='limit-name'>Time limit (s)</span>
+                    <span class='limit-value'>2.000</span>
+                </li>
+                <li class='limit-line'>
+                    <span class='limit-name'>Memory limit (MB)</span>
+                    <span class='limit-value'>64</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    
+    <!-- Notes -->
+    <div class="section">
+        <h2 class="section-title">Notes</h2>
+        <ul class="notes">
+        
+            <li><note>In calculating the probability, let <tt>wins</tt> be the number of non-bomb squares which have no bomb neighbors, and let <tt>losses</tt> be the number of bombs on the board.  The odds of winning are then <tt>(wins / (wins + losses))</tt>, which returns a number between 0.0 and 1.0, inclusive.</note></li>
+        
+            <li><note>As long as you calculate <tt>wins</tt> and <tt>losses</tt> correctly, you need not worry about minor double imprecisions.</note></li>
+        
+            <li><note>Your solution need only be accurate to 1e-9 (relative or absolute).  Thus, if your result is within 1e-9 (relative or absolute) of the result shown, your result will be judged correct.</note></li>
+        
+        </ul>
+    </div>
+    
+    
+    <!-- Constraints -->
+    <div class="section">
+        <h2 class="section-title">Constraints</h2>
+        <ul class="constraints">
+        
+            <li><user-constraint><b>board</b> will contain between 1 and 50 elements, inclusive.</user-constraint></li>
+        
+            <li><user-constraint>Each element of <b>board</b> will contain between 1 and 50 characters, inclusive.</user-constraint></li>
+        
+            <li><user-constraint>Each element of <b>board</b> will contain the same number of characters.</user-constraint></li>
+        
+            <li><user-constraint>Each character in <b>board</b> will be either '.' or 'B'.</user-constraint></li>
+        
+        </ul>
+    </div>
+
+    <!-- Test cases -->
+    <div class="section">
+        <h2 class="section-title">Test cases</h2>
+        <ol class="testcases" start='0'>
+            
+            <li class="testcase">
+                <div class="testcase-content">
+                    <div class="testcase-input">
+                        <div class='tag'>input</div>
+                        <ul class="variables">
+                        
+                            <li class="variable data">
+                                <span class="name data">board</span>
+                                <span class="value data">
+                                
+                                    {&quot;.....&quot;,<br />&nbsp;&quot;.....&quot;,<br />&nbsp;&quot;..B..&quot;,<br />&nbsp;&quot;.....&quot;,<br />&nbsp;&quot;.....&quot;}
+                                
+                                </span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="testcase-output">
+                        <div class='tag'>output</div>
+                        <span class="prefix data">Returns</span>
+                        <span class="value data">
+                        
+                            94.11764705882354
+                        
+                        </span>
+                    </div>
+                    
+                    <div class="testcase-annotation">
+                        <div class='tag'>note</div>
+                        <div class="testcase-comment"><p>If you uncover the bomb in the center of the gameboard, you lose.  If you uncover one of the eight squares surrounding the bomb, you would need to take another turn.  If you uncover one of the 16 squares on the perimeter of the gameboard, you would win, since none of these squares has a neighboring square which is a bomb.  Since there are 16 ways to win and only 1 way to die, your odds of winning are 16/17, or about 94.1%.</p></div>
+                    </div>
+                    
+               
+                </div>
+            </li>
+            
+            <li class="testcase">
+                <div class="testcase-content">
+                    <div class="testcase-input">
+                        <div class='tag'>input</div>
+                        <ul class="variables">
+                        
+                            <li class="variable data">
+                                <span class="name data">board</span>
+                                <span class="value data">
+                                
+                                    {&quot;BBBBB&quot;,<br />&nbsp;&quot;B...B&quot;,<br />&nbsp;&quot;B...B&quot;,<br />&nbsp;&quot;B...B&quot;,<br />&nbsp;&quot;BBBBB&quot;}
+                                
+                                </span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="testcase-output">
+                        <div class='tag'>output</div>
+                        <span class="prefix data">Returns</span>
+                        <span class="value data">
+                        
+                            5.882352941176471
+                        
+                        </span>
+                    </div>
+                    
+                    <div class="testcase-annotation">
+                        <div class='tag'>note</div>
+                        <div class="testcase-comment"><p>As far as your odds of winning are concerned, this board is the opposite of the previous one.  The only way to win is to uncover the square in the exact center of the gameboard, while any of the 16 bombs on the perimeter will cause you to lose.  1/17 is about 0.0588, or about 5.88%.</p></div>
+                    </div>
+                    
+               
+                </div>
+            </li>
+            
+            <li class="testcase">
+                <div class="testcase-content">
+                    <div class="testcase-input">
+                        <div class='tag'>input</div>
+                        <ul class="variables">
+                        
+                            <li class="variable data">
+                                <span class="name data">board</span>
+                                <span class="value data">
+                                
+                                    {&quot;.........&quot;,<br />&nbsp;&quot;.B..B..B.&quot;,<br />&nbsp;&quot;.........&quot;,<br />&nbsp;&quot;.........&quot;,<br />&nbsp;&quot;.B..B..B.&quot;,<br />&nbsp;&quot;.........&quot;,<br />&nbsp;&quot;.........&quot;,<br />&nbsp;&quot;.B..B..B.&quot;,<br />&nbsp;&quot;.........&quot;}
+                                
+                                </span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="testcase-output">
+                        <div class='tag'>output</div>
+                        <span class="prefix data">Returns</span>
+                        <span class="value data">
+                        
+                            0.0
+                        
+                        </span>
+                    </div>
+                    
+                    <div class="testcase-annotation">
+                        <div class='tag'>note</div>
+                        <div class="testcase-comment"><p>Every square on this board is either a bomb, or has a bomb as a neighbor.  Therefore, there is no way to win.</p></div>
+                    </div>
+                    
+               
+                </div>
+            </li>
+            
+            <li class="testcase">
+                <div class="testcase-content">
+                    <div class="testcase-input">
+                        <div class='tag'>input</div>
+                        <ul class="variables">
+                        
+                            <li class="variable data">
+                                <span class="name data">board</span>
+                                <span class="value data">
+                                
+                                    {&quot;.........................&quot;,<br />&nbsp;&quot;.........................&quot;,<br />&nbsp;&quot;.........................&quot;,<br />&nbsp;&quot;.........................&quot;}
+                                
+                                </span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="testcase-output">
+                        <div class='tag'>output</div>
+                        <span class="prefix data">Returns</span>
+                        <span class="value data">
+                        
+                            100.0
+                        
+                        </span>
+                    </div>
+                    
+                    <div class="testcase-annotation">
+                        <div class='tag'>note</div>
+                        <div class="testcase-comment"><p>Now there are no bombs, so any square you uncover will cause you to win.</p></div>
+                    </div>
+                    
+               
+                </div>
+            </li>
+            
+            <li class="testcase">
+                <div class="testcase-content">
+                    <div class="testcase-input">
+                        <div class='tag'>input</div>
+                        <ul class="variables">
+                        
+                            <li class="variable data">
+                                <span class="name data">board</span>
+                                <span class="value data">
+                                
+                                    {&quot;......B.......B..B...........................B....&quot;,<br />&nbsp;&quot;..............B..................BB..B............&quot;,<br />&nbsp;&quot;B.B.B.............B.....B..............B..........&quot;,<br />&nbsp;&quot;...................B...B....................BB....&quot;,<br />&nbsp;&quot;...B.....B.........................B.......B.....B&quot;,<br />&nbsp;&quot;B.B.........B.....B.......B..B......B.B...B.BB....&quot;,<br />&nbsp;&quot;..B...................BB...............B..........&quot;,<br />&nbsp;&quot;.........B...B................B..B................&quot;,<br />&nbsp;&quot;.......BB.......B....B................B.....BBB...&quot;,<br />&nbsp;&quot;.......BB..........B..............B......BB.......&quot;,<br />&nbsp;&quot;...................BB.....................B.......&quot;,<br />&nbsp;&quot;...B.B.B......B..............B...B......B.........&quot;,<br />&nbsp;&quot;B................B................................&quot;,<br />&nbsp;&quot;....B..........B.....B..BB....B...............BB..&quot;,<br />&nbsp;&quot;..B....B.....B.............B.....B............B...&quot;,<br />&nbsp;&quot;...................B.B........B..B.........B.B....&quot;,<br />&nbsp;&quot;.....B.....B......................................&quot;,<br />&nbsp;&quot;...........BB......BB...B.B........B...B..........&quot;,<br />&nbsp;&quot;.....BBB..........................................&quot;,<br />&nbsp;&quot;.B...........B....B...BB......B......B...B.B......&quot;,<br />&nbsp;&quot;..................B........BB................B....&quot;,<br />&nbsp;&quot;...............................B..B....BBB.B....B.&quot;,<br />&nbsp;&quot;..........B.......................................&quot;,<br />&nbsp;&quot;.....B..........B....BB......B.B......B......B....&quot;,<br />&nbsp;&quot;.....B..................B........B................&quot;,<br />&nbsp;&quot;............B.....B..B....BB...B....BB........B...&quot;,<br />&nbsp;&quot;..B.................B.........B...................&quot;,<br />&nbsp;&quot;.BB..............B................................&quot;,<br />&nbsp;&quot;...B....B..................B.................B....&quot;,<br />&nbsp;&quot;......B...B......B......................B.B.......&quot;,<br />&nbsp;&quot;..............B..................B.......B........&quot;,<br />&nbsp;&quot;.....B........BB...B.....B........................&quot;,<br />&nbsp;&quot;.......B......B.B..B..........B...........B....B..&quot;,<br />&nbsp;&quot;B...B...........B...B...B......B.B...B..B......B..&quot;,<br />&nbsp;&quot;....B..B.....B.B.......BB..B............B.B....B..&quot;,<br />&nbsp;&quot;B.......B..........B.........B...B.BB......B......&quot;,<br />&nbsp;&quot;....B...............................B.............&quot;,<br />&nbsp;&quot;.....B.B..........................................&quot;,<br />&nbsp;&quot;..........B............B......B.B..B....B.........&quot;,<br />&nbsp;&quot;....B...B.......................B.................&quot;,<br />&nbsp;&quot;B.................B...........B..B....B...........&quot;,<br />&nbsp;&quot;...B.....B........................................&quot;,<br />&nbsp;&quot;...B..B......................................BBB..&quot;,<br />&nbsp;&quot;.B...B....................................B....B..&quot;,<br />&nbsp;&quot;...B...B..........B...B.B.........................&quot;,<br />&nbsp;&quot;.....B.............B...BB..........B..BBB.BB......&quot;,<br />&nbsp;&quot;....................B.....B.......................&quot;,<br />&nbsp;&quot;........B..BB..........B.B....B...........B......B&quot;,<br />&nbsp;&quot;.........B.....BB..B.............B....BB..........&quot;,<br />&nbsp;&quot;....B..B..............B...B..B..........B.........&quot;}
+                                
+                                </span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="testcase-output">
+                        <div class='tag'>output</div>
+                        <span class="prefix data">Returns</span>
+                        <span class="value data">
+                        
+                            77.67558528428094
+                        
+                        </span>
+                    </div>
+                    
+                    <div class="testcase-annotation">
+                        <div class='tag'>note</div>
+                        <div class="testcase-comment"><p>This board has 267 bombs, 1304 empty spaces with bomb neighbors, and 929 empty spaces without bomb neighbors.  <tt>(929 / (929 + 267))</tt> is about 0.7768.</p></div>
+                    </div>
+                    
+               
+                </div>
+            </li>
+            
+        </ol>
+    </div>
+    <hr />
+
+    This problem statement is the exclusive and proprietary property of TopCoder, Inc. Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited. (c)2003, TopCoder, Inc. All rights reserved.
+</body>
+</html>

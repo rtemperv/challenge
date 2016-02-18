@@ -5,7 +5,9 @@ from src.algorithms.dynamic.longest_increasing_subsequence import longest_increa
 
 class ThePriceIsRight:
     def howManyReveals(self, prices):
-        return (len(longest_increasing_subsequence(prices)), 0)
+
+
+
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{

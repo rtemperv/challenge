@@ -1,7 +1,7 @@
 def knuth_morris_pratt(word: str, text: str) -> int:
     """
     Finds if the word is contained in the text
-    Time complexity: O(n)
+    Time complexity: O(m+n)
     """
 
     # Build partial match table (previous index to fall back to when there is no match)

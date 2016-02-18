@@ -1,9 +1,59 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
+from datetime import datetime
+from functools import partial
+
+from src.structures.queue import Queue
 
 class Salary:
     def howMuch(self, arrival, departure, wage):
-        return 0
+
+        time_converter = lambda x: datetime.strptime(x, '%H:%M:%S')
+
+        arrival = map(time_converter, arrival)
+        departure = map(time_converter, departure)
+
+        q = Queue(zip(arrival, departure))
+
+        evening = datetime.strptime('18:00:00', '%H:%M:%S')
+        morning = datetime.strptime('06:00:00', '%H:%M:%S')
+
+        night_shifts = []
+        day_shifts = []
+
+        while not q.is_empty():
+            arr, dep = q.dequeue()
+
+            if arr < morning and dep < morning:
+                night_shifts.append((arr, dep))
+
+            elif arr < morning <= dep:
+                night_shifts.append((arr, morning))
+                q.enqueue((morning, dep))
+
+            elif morning <= arr < evening and morning <= dep < evening:
+                day_shifts.append((arr, dep))
+
+            elif arr < evening <= dep:
+                day_shifts.append((arr, evening))
+                q.enqueue((evening, dep))
+
+            else:
+                night_shifts.append((arr, dep))
+
+        pay = 0
+        pay += wage * sum(list(map(self.calculate_time_difference, day_shifts)))
+        pay += wage * sum(list(map(self.calculate_time_difference, night_shifts))) * 1.5
+
+        return pay
+
+    def calculate_time_difference(self, times):
+        arr, dep = times
+        delta = dep - arr
+
+        return delta.seconds/3600
+
+
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{

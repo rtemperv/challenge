@@ -3,7 +3,43 @@ import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
 class BombSweeper:
     def winPercentage(self, board):
-        return 0.0
+        status_board = [self.status_square(board, x, y) for x in range(len(board[0])) for y in range(len(board))]
+
+        bomb_squares = len(list(filter(lambda x: x == -1, status_board)))
+        ok_squares = len(list(filter(lambda x: x == 1, status_board)))
+
+        return ok_squares*100 / (ok_squares + bomb_squares)
+
+    def status_square(self, board, x, y):
+
+        if board[y][x] == "B":
+            return -1
+
+        if y > 0 and board[y-1][x] == "B":
+            return 0
+
+        if x > 0 and board[y][x-1] == "B":
+            return 0
+
+        if x < len(board[0]) - 1 and board[y][x+1] == "B":
+            return 0
+
+        if y < len(board) - 1 and board[y+1][x] == "B":
+            return 0
+
+        if y > 0 and x > 0 and board[y-1][x-1] == "B":
+            return 0
+
+        if y < len(board) - 1 and x > 0 and board[y+1][x-1] == "B":
+            return 0
+
+        if y < len(board) - 1 and x < len(board[0]) - 1 and board[y+1][x+1] == "B":
+            return 0
+
+        if y > 0 and x < len(board[0]) - 1 and board[y-1][x+1] == "B":
+            return 0
+
+        return 1
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{

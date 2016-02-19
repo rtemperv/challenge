@@ -1,13 +1,22 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
-from src.algorithms.dynamic.longest_increasing_subsequence import longest_increasing_subsequence
 
+class PaperFold:
+    def numFolds(self, paper, box):
+        min_folds = self.recursive_fold(paper, box, 0)
 
-class ThePriceIsRight:
-    def howManyReveals(self, prices):
-        pass
+        return -1 if min_folds == sys.maxsize else min_folds
 
+    def recursive_fold(self, paper, box, current_folds):
 
+        if 8 < current_folds:
+            return sys.maxsize
+
+        if max(*paper) <= max(*box) and min(*paper) <= min(*box):
+            return current_folds
+
+        return min(self.recursive_fold((paper[0]/2, paper[1]), box, current_folds + 1),
+                   self.recursive_fold((paper[0], paper[1]/2), box, current_folds + 1))
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
@@ -37,12 +46,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(prices, __expected):
+def do_test(paper, box, __expected):
     startTime = time.time()
-    instance = ThePriceIsRight()
+    instance = PaperFold()
     exception = None
     try:
-        __result = instance.howManyReveals(prices);
+        __result = instance.numFolds(paper, box);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -63,38 +72,39 @@ def do_test(prices, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("ThePriceIsRight (500 Points)\n\n")
+    sys.stdout.write("PaperFold (250 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("ThePriceIsRight.sample", "r") as f:
+    with open("PaperFold.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            prices = []
+            paper = []
             for i in range(0, int(f.readline())):
-                prices.append(int(f.readline().rstrip()))
-            prices = tuple(prices)
+                paper.append(int(f.readline().rstrip()))
+            paper = tuple(paper)
+            box = []
+            for i in range(0, int(f.readline())):
+                box.append(int(f.readline().rstrip()))
+            box = tuple(box)
             f.readline()
-            __answer = []
-            for i in range(0, int(f.readline())):
-                __answer.append(int(f.readline().rstrip()))
-            __answer = tuple(__answer)
+            __answer = int(f.readline().rstrip())
 
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(prices, __answer)
+            passed += do_test(paper, box, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1454700525
+    T = time.time() - 1455829088
     PT, TT = (T / 60.0, 75.0)
-    points = 500 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
+    points = 250 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))
     sys.stdout.write("Score  : %.2f points\n" % points)
 

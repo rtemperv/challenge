@@ -1,0 +1,24 @@
+-- Example 0
+RRG
+
+1
+-- Example 1
+RRGRG
+
+3
+-- Example 2
+RRRRRRRRRR
+
+1
+-- Example 3
+RGGGGGGGGG
+
+6
+-- Example 4
+GGRRGGRGRGRRGRRRGGR
+
+511
+-- Example 5
+RGGGGGGGGGGGGGGGGGGGGGGGGGGGR
+
+16383

@@ -1,0 +1,64 @@
+-- Example 0
+5
+/usr/lib/libc
+/usr/bin/find
+/home/schveiguy/bashrc
+/usr/bin/bash
+/usr/local/bin/ssh
+
+13
+ROOT
++-home
+| +-schveiguy
+|   +-bashrc
++-usr
+  +-bin
+  | +-bash
+  | +-find
+  +-lib
+  | +-libc
+  +-local
+    +-bin
+      +-ssh
+-- Example 1
+5
+/dir/dir/file
+/dir/file
+/file
+/dir/sharedname/dir
+/dir/dir/sharedname
+
+9
+ROOT
++-dir
+| +-dir
+| | +-file
+| | +-sharedname
+| +-file
+| +-sharedname
+|   +-dir
++-file
+-- Example 2
+3
+/a/a/a/a/a/a/a
+/a/b/a/a/a/a/a
+/a/a/a/a/b/a/a
+
+17
+ROOT
++-a
+  +-a
+  | +-a
+  |   +-a
+  |     +-a
+  |     | +-a
+  |     |   +-a
+  |     +-b
+  |       +-a
+  |         +-a
+  +-b
+    +-a
+      +-a
+        +-a
+          +-a
+            +-a

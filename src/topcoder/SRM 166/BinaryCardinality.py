@@ -1,14 +1,20 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
-from src.algorithms.dynamic.longest_increasing_subsequence import longest_increasing_subsequence
+
+class BinaryCardinality:
+    def arrange(self, numbers):
+        return list(map(lambda x: x[1], sorted([(self.cardinality(number), number) for number in numbers])))
 
 
-class ThePriceIsRight:
-    def howManyReveals(self, prices):
-        pass
+    def cardinality(self, number):
 
+        cardinality = 0
 
-
+        while number > 0:
+            if number % 2 == 1:
+                cardinality += 1
+            number //= 2
+        return cardinality
 # CUT begin
 # TEST CODE FOR PYTHON {{{
 import sys, time, math
@@ -37,12 +43,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(prices, __expected):
+def do_test(numbers, __expected):
     startTime = time.time()
-    instance = ThePriceIsRight()
+    instance = BinaryCardinality()
     exception = None
     try:
-        __result = instance.howManyReveals(prices);
+        __result = instance.arrange(numbers);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -63,22 +69,22 @@ def do_test(prices, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("ThePriceIsRight (500 Points)\n\n")
+    sys.stdout.write("BinaryCardinality (250 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("ThePriceIsRight.sample", "r") as f:
+    with open("BinaryCardinality.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            prices = []
+            numbers = []
             for i in range(0, int(f.readline())):
-                prices.append(int(f.readline().rstrip()))
-            prices = tuple(prices)
+                numbers.append(int(f.readline().rstrip()))
+            numbers = tuple(numbers)
             f.readline()
             __answer = []
             for i in range(0, int(f.readline())):
@@ -88,13 +94,13 @@ def run_tests():
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(prices, __answer)
+            passed += do_test(numbers, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1454700525
+    T = time.time() - 1455829295
     PT, TT = (T / 60.0, 75.0)
-    points = 500 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
+    points = 250 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))
     sys.stdout.write("Score  : %.2f points\n" % points)
 

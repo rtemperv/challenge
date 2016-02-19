@@ -1,0 +1,50 @@
+-- Example 0
+4
+bjones
+bjones03
+bmjones
+old34id
+Bob
+
+Jones
+
+bjones01
+-- Example 1
+4
+bjones
+bjones03
+bmjones
+old34id
+ "Bob Mack"
+Hertobise
+"Jone's" 
+
+bhjones
+-- Example 2
+4
+bjonesto
+bjones01
+bjonesto
+old34id
+BoB-Mack
+Mo
+"Jonestone" 
+
+BAD DATA
+-- Example 3
+3
+momorris
+mmmm
+momorr01
+'m m
+
+O'Morrisy
+
+momorr02
+-- Example 4
+0
+'m m
+J.J
+O'Morrisy
+
+BAD DATA

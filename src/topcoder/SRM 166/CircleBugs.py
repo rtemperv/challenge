@@ -1,11 +1,17 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
-from src.algorithms.dynamic.longest_increasing_subsequence import longest_increasing_subsequence
 
+class CircleBugs:
+    def cycleLength(self, formation):
 
-class ThePriceIsRight:
-    def howManyReveals(self, prices):
-        pass
+        formations = [formation]
+        while True:
+            formation = ['R' if formation[i-1] == formation[i] else 'G' for i in range(len(formation))]
+
+            for index, f in enumerate(reversed(formations)):
+                if "".join(formation) in (f + f):
+                    return index + 1
+            formations.append(''.join(formation))
 
 
 
@@ -37,12 +43,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(prices, __expected):
+def do_test(formation, __expected):
     startTime = time.time()
-    instance = ThePriceIsRight()
+    instance = CircleBugs()
     exception = None
     try:
-        __result = instance.howManyReveals(prices);
+        __result = instance.cycleLength(formation);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -63,38 +69,32 @@ def do_test(prices, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("ThePriceIsRight (500 Points)\n\n")
+    sys.stdout.write("CircleBugs (650 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("ThePriceIsRight.sample", "r") as f:
+    with open("CircleBugs.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            prices = []
-            for i in range(0, int(f.readline())):
-                prices.append(int(f.readline().rstrip()))
-            prices = tuple(prices)
+            formation = f.readline().rstrip()
             f.readline()
-            __answer = []
-            for i in range(0, int(f.readline())):
-                __answer.append(int(f.readline().rstrip()))
-            __answer = tuple(__answer)
+            __answer = int(f.readline().rstrip())
 
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(prices, __answer)
+            passed += do_test(formation, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1454700525
+    T = time.time() - 1455829300
     PT, TT = (T / 60.0, 75.0)
-    points = 500 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
+    points = 650 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))
     sys.stdout.write("Score  : %.2f points\n" % points)
 

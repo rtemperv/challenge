@@ -1,13 +1,40 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
-from src.algorithms.dynamic.longest_increasing_subsequence import longest_increasing_subsequence
 
+class UserId:
+    def id(self, inUse, first, middle, last):
+        if not self.is_valid(first) or len(first) < 2:
+            return "BAD DATA"
+        if not self.is_valid(middle):
+            return "BAD DATA"
+        if not self.is_valid(last) or len(last) < 2:
+            return "BAD DATA"
 
-class ThePriceIsRight:
-    def howManyReveals(self, prices):
-        pass
+        # First method
 
+        first = first.lower()
+        middle = middle.lower()
+        last = last.lower()
 
+        first = re.sub("[' ]", '', first)
+        middle = re.sub("[' ]", '', middle)
+        last = re.sub("[' ]", '', last)
+
+        if (first[0] + last) not in inUse:
+            return first[0] + last
+        if len(middle) > 0 and (first[0] + middle[0] + last) not in inUse:
+            return first[0] + middle[0] + last
+
+        else:
+            for i in range(10):
+                for j in range(10):
+                    if i == 0 and j == 0:
+                        j = 1
+                    if (first[0] + last + str(i) + str(j)) not in inUse:
+                        return first[0] + last + str(i) + str(j)
+
+    def is_valid(self, name):
+        return re.match(r"[A-Za-z ']*", name)
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
@@ -37,12 +64,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(prices, __expected):
+def do_test(inUse, first, middle, last, __expected):
     startTime = time.time()
-    instance = ThePriceIsRight()
+    instance = UserId()
     exception = None
     try:
-        __result = instance.howManyReveals(prices);
+        __result = instance.id(inUse, first, middle, last);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -63,38 +90,38 @@ def do_test(prices, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("ThePriceIsRight (500 Points)\n\n")
+    sys.stdout.write("UserId (300 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("ThePriceIsRight.sample", "r") as f:
+    with open("UserId.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            prices = []
+            inUse = []
             for i in range(0, int(f.readline())):
-                prices.append(int(f.readline().rstrip()))
-            prices = tuple(prices)
+                inUse.append(f.readline().rstrip())
+            inUse = tuple(inUse)
+            first = f.readline().rstrip()
+            middle = f.readline().rstrip()
+            last = f.readline().rstrip()
             f.readline()
-            __answer = []
-            for i in range(0, int(f.readline())):
-                __answer.append(int(f.readline().rstrip()))
-            __answer = tuple(__answer)
+            __answer = f.readline().rstrip()
 
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(prices, __answer)
+            passed += do_test(inUse, first, middle, last, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1454700525
+    T = time.time() - 1455829201
     PT, TT = (T / 60.0, 75.0)
-    points = 500 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
+    points = 300 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))
     sys.stdout.write("Score  : %.2f points\n" % points)
 

@@ -38,3 +38,5 @@ class Stack(object):
         with self._lock:
             return len(self._linked_list) == 0
 
+    def size(self):
+        return len(self._linked_list)

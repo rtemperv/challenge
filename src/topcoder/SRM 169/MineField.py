@@ -1,25 +1,31 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
-class Animation:
-    def animate(self, speed, init):
-        left_particles = "".join(["X" if x == "L" else '.' for x in init])
-        right_particles = "".join(["X" if x == "R" else '.' for x in init])
+class MineField:
+    def getMineField(self, mineLocations):
 
-        moves = []
+        coordinates = {(int(y), int(x)) for _, y, x in re.findall('((\d),(\d))', mineLocations)}
 
-        while True:
+        board = []
+        for y in range(9):
+            row = []
+            for x in range(9):
 
-            if not list(filter(lambda x: x != ".", left_particles)) and not list(filter(lambda x: x != ".", right_particles)):
-                break
+                # if the coordinate contains a bomb
+                if (y, x) in coordinates:
+                    row.append('M')
+                else:
+                    # count the number of bombs
+                    bombs = 0
+                    for x_diff in (-1, 0, 1):
+                        for y_diff in (-1, 0, 1):
+                            if (y + y_diff, x + x_diff) in coordinates:
+                                bombs += 1
+                    row.append(str(bombs))
 
-            moves.append(["X" if a == "X" or b == "X" else "." for a, b in zip(left_particles, right_particles)])
-            right_particles = ("." * speed) + right_particles[:-speed]
-            left_particles = left_particles[speed:] + ("." * speed)
+            board.append(''.join(row))
 
-        moves.append('.' * len(left_particles))
-
-        return (list(map(lambda x:"".join(x), moves)))
+        return board
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
@@ -49,12 +55,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(speed, init, __expected):
+def do_test(mineLocations, __expected):
     startTime = time.time()
-    instance = Animation()
+    instance = MineField()
     exception = None
     try:
-        __result = instance.animate(speed, init);
+        __result = instance.getMineField(mineLocations);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -75,20 +81,19 @@ def do_test(speed, init, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("Animation (250 Points)\n\n")
+    sys.stdout.write("MineField (250 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("Animation.sample", "r") as f:
+    with open("MineField.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            speed = int(f.readline().rstrip())
-            init = f.readline().rstrip()
+            mineLocations = f.readline().rstrip()
             f.readline()
             __answer = []
             for i in range(0, int(f.readline())):
@@ -98,11 +103,11 @@ def run_tests():
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(speed, init, __answer)
+            passed += do_test(mineLocations, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1455829316
+    T = time.time() - 1456142423
     PT, TT = (T / 60.0, 75.0)
     points = 250 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))

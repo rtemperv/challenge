@@ -1,25 +1,9 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
-class Animation:
-    def animate(self, speed, init):
-        left_particles = "".join(["X" if x == "L" else '.' for x in init])
-        right_particles = "".join(["X" if x == "R" else '.' for x in init])
-
-        moves = []
-
-        while True:
-
-            if not list(filter(lambda x: x != ".", left_particles)) and not list(filter(lambda x: x != ".", right_particles)):
-                break
-
-            moves.append(["X" if a == "X" or b == "X" else "." for a, b in zip(left_particles, right_particles)])
-            right_particles = ("." * speed) + right_particles[:-speed]
-            left_particles = left_particles[speed:] + ("." * speed)
-
-        moves.append('.' * len(left_particles))
-
-        return (list(map(lambda x:"".join(x), moves)))
+class WordForm:
+    def getSequence(self, word):
+        return ""
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
@@ -49,12 +33,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(speed, init, __expected):
+def do_test(word, __expected):
     startTime = time.time()
-    instance = Animation()
+    instance = WordForm()
     exception = None
     try:
-        __result = instance.animate(speed, init);
+        __result = instance.getSequence(word);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -75,34 +59,30 @@ def do_test(speed, init, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("Animation (250 Points)\n\n")
+    sys.stdout.write("Stemmer (250 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("Animation.sample", "r") as f:
+    with open("Stemmer.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            speed = int(f.readline().rstrip())
-            init = f.readline().rstrip()
+            word = f.readline().rstrip()
             f.readline()
-            __answer = []
-            for i in range(0, int(f.readline())):
-                __answer.append(f.readline().rstrip())
-            __answer = tuple(__answer)
+            __answer = f.readline().rstrip()
 
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(speed, init, __answer)
+            passed += do_test(word, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1455829316
+    T = time.time() - 1456142570
     PT, TT = (T / 60.0, 75.0)
     points = 250 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))

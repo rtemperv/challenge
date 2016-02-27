@@ -102,6 +102,19 @@ class LinkedList(Generic[T]):
             raise IndexError('No elements available')
         return self.tail
 
+    def reverse(self):
+
+        current_node = self.head
+        self.tail = current_node
+        last_element = None
+        while current_node:
+            node = current_node
+            current_node = current_node.next_node
+            node.next_node = last_element
+            last_element = node
+
+        self.head = last_element
+
     @typechecked
     def to_array(self) -> List[T]:
         """
@@ -217,3 +230,4 @@ class LinkedList(Generic[T]):
 
     def __str__(self) -> str:
         return "[" + (" -> ".join(map(str, self.to_array()))) + "]"
+

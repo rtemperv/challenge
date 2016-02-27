@@ -1,25 +1,22 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
-class Animation:
-    def animate(self, speed, init):
-        left_particles = "".join(["X" if x == "L" else '.' for x in init])
-        right_particles = "".join(["X" if x == "R" else '.' for x in init])
+class CrossCountry:
+    def scoreMeet(self, numTeams, finishOrder):
 
-        moves = []
+        teams_with_position = [(team, index + 1) for index, team in enumerate(list(finishOrder))]
+        groups = itertools.groupby(sorted(teams_with_position), key=lambda x: x[0])
 
-        while True:
+        processed_groups = []
 
-            if not list(filter(lambda x: x != ".", left_particles)) and not list(filter(lambda x: x != ".", right_particles)):
-                break
+        for name, group in groups:
+            group = [x[1] for x in group]
+            if len(group) < 5:
+                continue
+            processed_groups.append((sum(group[:5]), group[5] if len(group) > 5 else sys.maxsize, name))
 
-            moves.append(["X" if a == "X" or b == "X" else "." for a, b in zip(left_particles, right_particles)])
-            right_particles = ("." * speed) + right_particles[:-speed]
-            left_particles = left_particles[speed:] + ("." * speed)
+        return "".join([x[-1] for x in sorted(processed_groups)])
 
-        moves.append('.' * len(left_particles))
-
-        return (list(map(lambda x:"".join(x), moves)))
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
@@ -49,12 +46,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(speed, init, __expected):
+def do_test(numTeams, finishOrder, __expected):
     startTime = time.time()
-    instance = Animation()
+    instance = CrossCountry()
     exception = None
     try:
-        __result = instance.animate(speed, init);
+        __result = instance.scoreMeet(numTeams, finishOrder);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -75,36 +72,33 @@ def do_test(speed, init, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("Animation (250 Points)\n\n")
+    sys.stdout.write("CrossCountry (300 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("Animation.sample", "r") as f:
+    with open("CrossCountry.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            speed = int(f.readline().rstrip())
-            init = f.readline().rstrip()
+            numTeams = int(f.readline().rstrip())
+            finishOrder = f.readline().rstrip()
             f.readline()
-            __answer = []
-            for i in range(0, int(f.readline())):
-                __answer.append(f.readline().rstrip())
-            __answer = tuple(__answer)
+            __answer = f.readline().rstrip()
 
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(speed, init, __answer)
+            passed += do_test(numTeams, finishOrder, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1455829316
+    T = time.time() - 1456142480
     PT, TT = (T / 60.0, 75.0)
-    points = 250 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
+    points = 300 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))
     sys.stdout.write("Score  : %.2f points\n" % points)
 

@@ -8,8 +8,10 @@ class CircleBugs:
         while True:
             formation = ['R' if formation[i-1] == formation[i] else 'G' for i in range(len(formation))]
 
-            for index, f in enumerate(reversed(formations)):
-                if "".join(formation) in (f + f):
+            for index in range(len(formations)):
+
+                i = len(formations) - index - 1
+                if "".join(formation) in (formations[i] * 2):
                     return index + 1
             formations.append(''.join(formation))
 

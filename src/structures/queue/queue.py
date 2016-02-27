@@ -12,6 +12,9 @@ class Queue(object):
         self._linked_list = LinkedList() if not data else LinkedList.from_array(data)
         self._lock = Lock()
 
+    def __iter__(self):
+        yield from self._linked_list
+
     def __len__(self):
         with self._lock:
             return len(self._linked_list)

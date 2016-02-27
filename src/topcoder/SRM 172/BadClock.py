@@ -1,25 +1,29 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
 
-class Animation:
-    def animate(self, speed, init):
-        left_particles = "".join(["X" if x == "L" else '.' for x in init])
-        right_particles = "".join(["X" if x == "R" else '.' for x in init])
+from datetime import datetime, timedelta
 
-        moves = []
+class BadClock:
+    def nextAgreement(self, trueTime, skewTime, hourlyGain):
 
-        while True:
+        true_time = datetime.strptime(trueTime, "%H:%M:%S")
+        skew_time = datetime.strptime(skewTime, "%H:%M:%S")
 
-            if not list(filter(lambda x: x != ".", left_particles)) and not list(filter(lambda x: x != ".", right_particles)):
-                break
+        if true_time < skew_time and hourlyGain > 0:
+            true_time += timedelta(hours=12)
 
-            moves.append(["X" if a == "X" or b == "X" else "." for a, b in zip(left_particles, right_particles)])
-            right_particles = ("." * speed) + right_particles[:-speed]
-            left_particles = left_particles[speed:] + ("." * speed)
+        elif skew_time < true_time and hourlyGain < 0:
+            skew_time += timedelta(hours=12)
 
-        moves.append('.' * len(left_particles))
+        if true_time < skew_time and hourlyGain < 0:
+            delta = skew_time - true_time
 
-        return (list(map(lambda x:"".join(x), moves)))
+        else:
+            delta = true_time - skew_time
+
+        hours = delta.seconds / abs(hourlyGain)
+
+        return hours
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
@@ -49,12 +53,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(speed, init, __expected):
+def do_test(trueTime, skewTime, hourlyGain, __expected):
     startTime = time.time()
-    instance = Animation()
+    instance = BadClock()
     exception = None
     try:
-        __result = instance.animate(speed, init);
+        __result = instance.nextAgreement(trueTime, skewTime, hourlyGain);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -75,34 +79,32 @@ def do_test(speed, init, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("Animation (250 Points)\n\n")
+    sys.stdout.write("BadClock (250 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("Animation.sample", "r") as f:
+    with open("BadClock.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            speed = int(f.readline().rstrip())
-            init = f.readline().rstrip()
+            trueTime = f.readline().rstrip()
+            skewTime = f.readline().rstrip()
+            hourlyGain = int(f.readline().rstrip())
             f.readline()
-            __answer = []
-            for i in range(0, int(f.readline())):
-                __answer.append(f.readline().rstrip())
-            __answer = tuple(__answer)
+            __answer = float(f.readline().rstrip())
 
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(speed, init, __answer)
+            passed += do_test(trueTime, skewTime, hourlyGain, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1455829316
+    T = time.time() - 1456142540
     PT, TT = (T / 60.0, 75.0)
     points = 250 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))

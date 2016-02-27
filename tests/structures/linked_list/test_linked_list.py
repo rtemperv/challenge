@@ -49,3 +49,10 @@ class TestLinkedList(unittest.TestCase):
         ll = LinkedList.from_array([1, 2, 3])
 
         assert list(ll) == [1, 2, 3]
+
+    def test_linked_list_reverse(self):
+        ll = LinkedList.from_array([1, 2, 3])
+
+        ll.reverse()
+
+        assert ll.to_array() == [3, 2, 1]

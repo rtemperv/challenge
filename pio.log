@@ -1,0 +1,2 @@
+2016-02-19 10:54:50,198 WARN  io.prediction.tools.console.Template$ [main] - template.json does not exist. Template metadata will not be available. (This is safe to ignore if you are not working on a template.)
+2016-02-19 10:54:50,207 ERROR io.prediction.tools.console.Console$ [main] - /Users/rtemperville/Dropbox/Documenten/Coding/Python/challenge/manifest.json does not exist. Aborting.

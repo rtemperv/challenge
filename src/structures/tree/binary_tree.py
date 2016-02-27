@@ -69,6 +69,19 @@ class BinaryNode(object):
                    self.lnode.max_value if self.lnode else -sys.maxsize,
                    self.rnode.max_value if self.rnode else -sys.maxsize)
 
+    @property
+    def max_depth(self):
+        return max(self.lnode.max_depth if self.lnode else 0,
+                   self.rnode.max_depth if self.rnode else 0) + 1
+
+    @property
+    def min_depth(self):
+        return min(self.lnode.min_depth if self.lnode else 0,
+                   self.rnode.min_depth if self.rnode else 0) + 1
+
+    def is_balanced(self):
+        return self.max_depth - self.min_depth < 2
+
     def get_leaf_nodes(self) -> Iterator['BinaryNode']:
         """
         Get an iterator of all the children of this node which are also leaf nodes

@@ -1,25 +1,27 @@
 # -*- coding: utf-8 -*-
 import math,string,itertools,fractions,heapq,collections,re,array,bisect
+from src.structures import Queue
 
-class Animation:
-    def animate(self, speed, init):
-        left_particles = "".join(["X" if x == "L" else '.' for x in init])
-        right_particles = "".join(["X" if x == "R" else '.' for x in init])
+class RecurrenceRelation:
+    def moduloTen(self, coefficients, initial, N):
 
-        moves = []
+        numbers = Queue(initial)
+        current_iteration = len(initial) - 1
+
+        if N <= current_iteration:
+            return initial[N] % 10
 
         while True:
 
-            if not list(filter(lambda x: x != ".", left_particles)) and not list(filter(lambda x: x != ".", right_particles)):
-                break
+            current_value = sum([i * c for i, c in zip(numbers, coefficients)]) % 10
+            numbers.dequeue()
+            numbers.enqueue(current_value)
+            current_iteration += 1
 
-            moves.append(["X" if a == "X" or b == "X" else "." for a, b in zip(left_particles, right_particles)])
-            right_particles = ("." * speed) + right_particles[:-speed]
-            left_particles = left_particles[speed:] + ("." * speed)
+            if current_iteration == N:
+                return current_value
 
-        moves.append('.' * len(left_particles))
 
-        return (list(map(lambda x:"".join(x), moves)))
 
 # CUT begin
 # TEST CODE FOR PYTHON {{{
@@ -49,12 +51,12 @@ def pretty_str(x):
     else:
         return str(x)
 
-def do_test(speed, init, __expected):
+def do_test(coefficients, initial, N, __expected):
     startTime = time.time()
-    instance = Animation()
+    instance = RecurrenceRelation()
     exception = None
     try:
-        __result = instance.animate(speed, init);
+        __result = instance.moduloTen(coefficients, initial, N);
     except:
         import traceback
         exception = traceback.format_exc()
@@ -75,34 +77,38 @@ def do_test(speed, init, __expected):
         return 0
 
 def run_tests():
-    sys.stdout.write("Animation (250 Points)\n\n")
+    sys.stdout.write("RecurrenceRelation (250 Points)\n\n")
 
     passed = cases = 0
     case_set = set()
     for arg in sys.argv[1:]:
         case_set.add(int(arg))
 
-    with open("Animation.sample", "r") as f:
+    with open("RecurrenceRelation.sample", "r") as f:
         while True:
             label = f.readline()
             if not label.startswith("--"): break
 
-            speed = int(f.readline().rstrip())
-            init = f.readline().rstrip()
-            f.readline()
-            __answer = []
+            coefficients = []
             for i in range(0, int(f.readline())):
-                __answer.append(f.readline().rstrip())
-            __answer = tuple(__answer)
+                coefficients.append(int(f.readline().rstrip()))
+            coefficients = tuple(coefficients)
+            initial = []
+            for i in range(0, int(f.readline())):
+                initial.append(int(f.readline().rstrip()))
+            initial = tuple(initial)
+            N = int(f.readline().rstrip())
+            f.readline()
+            __answer = int(f.readline().rstrip())
 
             cases += 1
             if len(case_set) > 0 and (cases - 1) in case_set: continue
             sys.stdout.write("  Testcase #%d ... " % (cases - 1))
-            passed += do_test(speed, init, __answer)
+            passed += do_test(coefficients, initial, N, __answer)
 
     sys.stdout.write("\nPassed : %d / %d cases\n" % (passed, cases))
 
-    T = time.time() - 1455829316
+    T = time.time() - 1456142466
     PT, TT = (T / 60.0, 75.0)
     points = 250 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT))
     sys.stdout.write("Time   : %d minutes %d secs\n" % (int(T/60), T%60))

@@ -78,6 +78,9 @@ class BinaryHeap(object):
             if node.lnode or node.rnode:
                 self.__percolate_down(node)
 
+    def is_empty(self):
+        return self._root is None
+
     def print(self):
         self._root.pretty_print()
 

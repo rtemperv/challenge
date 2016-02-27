@@ -12,9 +12,8 @@ class Graph(object, metaclass=abc.ABCMeta):
     # Todo: adjacency matrix implementation (2 dimensional vertices array)
     # Todo: incidence matrix implementation (2 dimensional vertices/edges array)
 
-    def __init__(self, directed=True):
+    def __init__(self):
         self.adjacency_list = {}
-        self.directed = True
 
     def _add_edge(self, a, b, weight):
         edge = Edge(weight, a, b)

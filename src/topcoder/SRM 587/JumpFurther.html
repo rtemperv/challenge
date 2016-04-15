@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>TopCoder SRM 182 - 250: SlayingDeer</title>
+    <title>TopCoder SRM 587 - 500: JumpFurther</title>
     
     <link type="image/x-icon" rel="shortcut icon" href="http://www.topcoder.com/i/favicon.ico"/>
     
@@ -213,10 +213,10 @@ li.testcase .data {
 
 <body>
     <h1 class="heading">
-        <span id='contest-name'>SRM 182</span>
-        <span id='contest-division'>1</span>
-        <span id='problem-score'>250</span>
-        <span id='problem-name'>SlayingDeer</span>
+        <span id='contest-name'>SRM 587</span>
+        <span id='contest-division'>2</span>
+        <span id='problem-score'>500</span>
+        <span id='problem-name'>JumpFurther</span>
     </h1>
 
     <hr />
@@ -225,9 +225,31 @@ li.testcase .data {
     <div class="section">
         <h2 class="section-title">Problem Statement</h2>
         <div class="problem-intro">
-            <intro><p>Although TopCoder member Running Wild is a vegetarian, he has recently decided that he would eat venison if he could catch a deer himself. Before committing too much time and effort to this endeavor, Running Wild would like to estimate his chances at success. To do this, he assumes that he will run at a constant speed of <b>A</b> meters per minute without ever getting tired. Similarly, a deer will run at a constant speed of <b>B</b> meters per minute, but after every 30 minutes of running, it must stop and rest for 15 minutes. Finally, Running Wild also assumes that he will begin at a given distance of <b>C</b> meters behind the deer, and that they will always be running in the same fixed direction.</p>
+            <intro escaped="1"><p>
+Little Fox Jiro is standing at the bottom of a long flight of stairs.
+The bottom of the stairs has number 0, the bottommost step has number 1, the next step has number 2, and so on.
+The staircase is so long that Jiro is guaranteed not to reach its top.
+</p>
+<p>
+Jiro will now perform <b>N</b> consecutive actions.
+The actions are numbered 1 through <b>N</b>, in order.
+When performing action X, Jiro chooses between two options: either he does nothing, or he jumps exactly X steps up the stairs.
+In other words, if Jiro starts performing action X standing on step Y, he will end it either on step Y, or on step Y+X.
+</p>
+<p>
+For example, if <b>N</b>=3, Jiro will make three consecutive choices: whether or not to jump 1 step upwards, 2 steps upwards, and then 3 steps upwards.
+</p>
+<p>
+One of the steps is broken.
+The number of this step is <b>badStep</b>.
+Jiro cannot jump onto this step.
+</p>
+<p>
+You are given the <type>int</type>s <b>N</b> and <b>badStep</b>.
+Compute and return the number of the topmost step that can be reached by Jiro.
+</p>
 
-<p>Create a class SlayingDeer that contains a method getTime, which is given an <type>int</type> <b>A</b>, an <type>int</type> <b>B</b>, and an <type>int</type> <b>C</b>, representing the quantities described above. The method should return the number of minutes (rounded up) it will take for Running Wild to catch the deer. If Running Wild will never catch the deer, the method should return -1.</p></intro>
+</intro>
         </div>
     </div>
     
@@ -239,18 +261,16 @@ li.testcase .data {
             <ul class="problem-definition-lines">
                 <li class="definition-line" id='class-line'>
                     <span class='definition-name'>Class</span>
-                    <span class='definition-value'>SlayingDeer</span>
+                    <span class='definition-value'>JumpFurther</span>
                 </li>
                 <li class="definition-line" id='method-line'>
                     <span class='definition-name'>Method</span>
-                    <span class='definition-value'>getTime</span>
+                    <span class='definition-value'>furthest</span>
                 </li>
                 <li class="definition-line" id='parameters-line'>
                     <span class='definition-name'>Parameters</span>
                     <span class='definition-value'>
                     
-                        integer
-                    , 
                         integer
                     , 
                         integer
@@ -266,7 +286,7 @@ li.testcase .data {
                 <li class="definition-line" id='signature-line'>
                     <span class='definition-name'>Method signature</span>
                     <span class='definition-value'>
-                        def getTime(self, A, B, C)
+                        def furthest(self, N, badStep)
                     </span>
                 </li>
             </ul>
@@ -293,25 +313,15 @@ li.testcase .data {
     </div>
 
     
-    <!-- Notes -->
-    <div class="section">
-        <h2 class="section-title">Notes</h2>
-        <ul class="notes">
-        
-            <li><note>If Running Wild and the deer are at precisely the same position, then Running Wild is considered to have caught the deer.</note></li>
-        
-        </ul>
-    </div>
-    
     
     <!-- Constraints -->
     <div class="section">
         <h2 class="section-title">Constraints</h2>
         <ul class="constraints">
         
-            <li><user-constraint><b>A</b> and <b>B</b> will be between 1 and 1000 inclusive.</user-constraint></li>
+            <li><user-constraint escaped="1"><b>N</b> will be between 1 and 2,000, inclusive.</user-constraint></li>
         
-            <li><user-constraint><b>C</b> will be between 1 and 100000 inclusive.</user-constraint></li>
+            <li><user-constraint escaped="1"><b>badStep</b> will be between 1 and 4,000,000, inclusive.</user-constraint></li>
         
         </ul>
     </div>
@@ -328,28 +338,19 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">N</span>
                                 <span class="value data">
                                 
-                                    5
+                                    2
                                 
                                 </span>
                             </li>
                         
                             <li class="variable data">
-                                <span class="name data">B</span>
+                                <span class="name data">badStep</span>
                                 <span class="value data">
                                 
-                                    4
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    20
+                                    2
                                 
                                 </span>
                             </li>
@@ -361,14 +362,14 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            20
+                            3
                         
                         </span>
                     </div>
                     
                     <div class="testcase-annotation">
                         <div class='tag'>note</div>
-                        <div class="testcase-comment">Running Wild gains one meter per minute over the first 20 minutes before catching the deer.</div>
+                        <div class="testcase-comment">The optimal strategy is to jump upwards twice: from step 0 to step 1, and then from step 1 to step 3. This trajectory avoids the broken step.</div>
                     </div>
                     
                
@@ -382,79 +383,16 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">N</span>
                                 <span class="value data">
                                 
-                                    5
+                                    2
                                 
                                 </span>
                             </li>
                         
                             <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    4
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    47
-                                
-                                </span>
-                            </li>
-                        
-                        </ul>
-                    </div>
-                    <div class="testcase-output">
-                        <div class='tag'>output</div>
-                        <span class="prefix data">Returns</span>
-                        <span class="value data">
-                        
-                            34
-                        
-                        </span>
-                    </div>
-                    
-                    <div class="testcase-annotation">
-                        <div class='tag'>note</div>
-                        <div class="testcase-comment">As in the previous example, Running Wild will gain 1 meter per minute for the first 30 minutes. Then, however, the deer stops and rests. Running Wild gains 5 meters per minute while the deer is resting. Note that the answer is rounded up.</div>
-                    </div>
-                    
-               
-                </div>
-            </li>
-            
-            <li class="testcase">
-                <div class="testcase-content">
-                    <div class="testcase-input">
-                        <div class='tag'>input</div>
-                        <ul class="variables">
-                        
-                            <li class="variable data">
-                                <span class="name data">A</span>
-                                <span class="value data">
-                                
-                                    10
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    17
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
+                                <span class="name data">badStep</span>
                                 <span class="value data">
                                 
                                     1
@@ -469,9 +407,14 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            -1
+                            2
                         
                         </span>
+                    </div>
+                    
+                    <div class="testcase-annotation">
+                        <div class='tag'>note</div>
+                        <div class="testcase-comment">In this case step 1 is broken, so Jiro cannot jump upwards as his first action. The optimal strategy is to first stay on step 0, and then to jump from step 0 to step 2.</div>
                     </div>
                     
                
@@ -485,28 +428,19 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">N</span>
                                 <span class="value data">
                                 
-                                    133
+                                    3
                                 
                                 </span>
                             </li>
                         
                             <li class="variable data">
-                                <span class="name data">B</span>
+                                <span class="name data">badStep</span>
                                 <span class="value data">
                                 
-                                    198
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    7515
+                                    3
                                 
                                 </span>
                             </li>
@@ -518,7 +452,7 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            7515
+                            5
                         
                         </span>
                     </div>
@@ -534,7 +468,47 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">N</span>
+                                <span class="value data">
+                                
+                                    1313
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">badStep</span>
+                                <span class="value data">
+                                
+                                    5858
+                                
+                                </span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="testcase-output">
+                        <div class='tag'>output</div>
+                        <span class="prefix data">Returns</span>
+                        <span class="value data">
+                        
+                            862641
+                        
+                        </span>
+                    </div>
+                    
+               
+                </div>
+            </li>
+            
+            <li class="testcase">
+                <div class="testcase-content">
+                    <div class="testcase-input">
+                        <div class='tag'>input</div>
+                        <ul class="variables">
+                        
+                            <li class="variable data">
+                                <span class="name data">N</span>
                                 <span class="value data">
                                 
                                     1
@@ -543,19 +517,10 @@ li.testcase .data {
                             </li>
                         
                             <li class="variable data">
-                                <span class="name data">B</span>
+                                <span class="name data">badStep</span>
                                 <span class="value data">
                                 
-                                    1000
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    15819
+                                    757065
                                 
                                 </span>
                             </li>
@@ -567,7 +532,7 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            -1
+                            1
                         
                         </span>
                     </div>

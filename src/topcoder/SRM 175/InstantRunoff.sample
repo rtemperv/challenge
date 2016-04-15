@@ -1,0 +1,54 @@
+-- Example 0
+ABC
+5
+ACB
+BCA
+ACB
+BCA
+CBA
+
+B
+-- Example 1
+DCBA
+7
+ACBD
+ACBD
+ACBD
+BCAD
+BCAD
+DBCA
+CBDA
+
+B
+-- Example 2
+ACB
+8
+ACB
+BCA
+ACB
+BCA
+ACB
+BCA
+CBA
+CAB
+
+
+-- Example 3
+CAB
+8
+ACB
+BCA
+ACB
+BCA
+ACB
+BCA
+CAB
+CAB
+
+A
+-- Example 4
+Z
+1
+Z
+
+Z

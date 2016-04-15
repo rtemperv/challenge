@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>TopCoder SRM 182 - 250: SlayingDeer</title>
+    <title>TopCoder SRM 179 - 250: NameCheck</title>
     
     <link type="image/x-icon" rel="shortcut icon" href="http://www.topcoder.com/i/favicon.ico"/>
     
@@ -213,10 +213,10 @@ li.testcase .data {
 
 <body>
     <h1 class="heading">
-        <span id='contest-name'>SRM 182</span>
+        <span id='contest-name'>SRM 179</span>
         <span id='contest-division'>1</span>
         <span id='problem-score'>250</span>
-        <span id='problem-name'>SlayingDeer</span>
+        <span id='problem-name'>NameCheck</span>
     </h1>
 
     <hr />
@@ -225,9 +225,29 @@ li.testcase .data {
     <div class="section">
         <h2 class="section-title">Problem Statement</h2>
         <div class="problem-intro">
-            <intro><p>Although TopCoder member Running Wild is a vegetarian, he has recently decided that he would eat venison if he could catch a deer himself. Before committing too much time and effort to this endeavor, Running Wild would like to estimate his chances at success. To do this, he assumes that he will run at a constant speed of <b>A</b> meters per minute without ever getting tired. Similarly, a deer will run at a constant speed of <b>B</b> meters per minute, but after every 30 minutes of running, it must stop and rest for 15 minutes. Finally, Running Wild also assumes that he will begin at a given distance of <b>C</b> meters behind the deer, and that they will always be running in the same fixed direction.</p>
-
-<p>Create a class SlayingDeer that contains a method getTime, which is given an <type>int</type> <b>A</b>, an <type>int</type> <b>B</b>, and an <type>int</type> <b>C</b>, representing the quantities described above. The method should return the number of minutes (rounded up) it will take for Running Wild to catch the deer. If Running Wild will never catch the deer, the method should return -1.</p></intro>
+            <intro>A user has entered a list of Strings. We must check each String to see if it
+meets our criteria for a &quot;customer&quot;, and either reject the String or
+recapitalize and respace it to meet our standards.
+<p>
+Our formatting manual states:<ol><li> 
+A well-formed customer consists of either 2 or 3 parts. The parts are separated by
+one or more spaces, but there are no leading spaces or trailing spaces.
+Each part must be a name or an initial, but the last part may not be an initial.
+    An initial is a letter ('a-z' or 'A-'Z') followed by a period ('.')
+    A name is a sequence of two or more letters ('a-z' or 'A'-'Z').
+</li></ol></p><p>
+Our standard for recapitalizing a well-formed customer is that each name or initial 
+should start with an uppercase letter and all other letters should be lowercase.
+Our standard for respacing a well-formed customer is that any extra spaces
+between parts should be removed leaving 
+exactly one space between adjacent parts.
+</p><p>
+Create a class NameCheck that contains a method formatList that is given a
+String[] <b>namelist</b> and that returns a String[] that includes all the well-formed customers,
+properly recapitalized and respaced. They should appear in the same order as in
+the original <b>namelist</b>.
+</p>
+</intro>
         </div>
     </div>
     
@@ -239,34 +259,30 @@ li.testcase .data {
             <ul class="problem-definition-lines">
                 <li class="definition-line" id='class-line'>
                     <span class='definition-name'>Class</span>
-                    <span class='definition-value'>SlayingDeer</span>
+                    <span class='definition-value'>NameCheck</span>
                 </li>
                 <li class="definition-line" id='method-line'>
                     <span class='definition-name'>Method</span>
-                    <span class='definition-value'>getTime</span>
+                    <span class='definition-value'>formatList</span>
                 </li>
                 <li class="definition-line" id='parameters-line'>
                     <span class='definition-name'>Parameters</span>
                     <span class='definition-value'>
                     
-                        integer
-                    , 
-                        integer
-                    , 
-                        integer
+                        tuple(string)
                     
                     </span>
                 </li>
                 <li class="definition-line" id='returns-line'>
                     <span class='definition-name'>Returns</span>
                     <span class='definition-value'>
-                        integer
+                        tuple(string)
                     </span>
                 </li>
                 <li class="definition-line" id='signature-line'>
                     <span class='definition-name'>Method signature</span>
                     <span class='definition-value'>
-                        def getTime(self, A, B, C)
+                        def formatList(self, namelist)
                     </span>
                 </li>
             </ul>
@@ -293,25 +309,17 @@ li.testcase .data {
     </div>
 
     
-    <!-- Notes -->
-    <div class="section">
-        <h2 class="section-title">Notes</h2>
-        <ul class="notes">
-        
-            <li><note>If Running Wild and the deer are at precisely the same position, then Running Wild is considered to have caught the deer.</note></li>
-        
-        </ul>
-    </div>
-    
     
     <!-- Constraints -->
     <div class="section">
         <h2 class="section-title">Constraints</h2>
         <ul class="constraints">
         
-            <li><user-constraint><b>A</b> and <b>B</b> will be between 1 and 1000 inclusive.</user-constraint></li>
+            <li><user-constraint><b>namelist</b> will contain between 1 and 50 elements inclusive.</user-constraint></li>
         
-            <li><user-constraint><b>C</b> will be between 1 and 100000 inclusive.</user-constraint></li>
+            <li><user-constraint>Each element of <b>namelist</b> will contain between 1 and 50 characters inclusive.</user-constraint></li>
+        
+            <li><user-constraint>Each character in each element of <b>namelist</b> will be an ASCII character (32-126).</user-constraint></li>
         
         </ul>
     </div>
@@ -328,28 +336,10 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">namelist</span>
                                 <span class="value data">
                                 
-                                    5
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    4
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    20
+                                    { &quot;Doug#as good&quot;, &quot;bArneY R.&quot;, &quot;bArneY   Rubble&quot;, &quot; Bob Stone&quot;, &quot;Bob B. J. Toms&quot;, &quot;J. Lo&quot; }
                                 
                                 </span>
                             </li>
@@ -361,14 +351,19 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            20
+                            { &quot;Barney Rubble&quot;, &quot;J. Lo&quot; }
                         
                         </span>
                     </div>
                     
                     <div class="testcase-annotation">
                         <div class='tag'>note</div>
-                        <div class="testcase-comment">Running Wild gains one meter per minute over the first 20 minutes before catching the deer.</div>
+                        <div class="testcase-comment">&quot;Doug#as good&quot; is not well-formed because Doug#as is not a name or initial.
+   &quot;bArneY R.&quot; is not well-formed because it does not end with a name.
+   &quot; Bob Stone&quot; is not well-formed because it starts with a space.
+   &quot;Bob B. J. Toms&quot; is not well-formed because it has 2 names and 2 initials.
+   &quot;bArneY   Rubble&quot; is well-formed, being a first name followed by a last name.
+   &quot;J. Lo&quot; is well-formed, being a first initial followed by a last name.</div>
                     </div>
                     
                
@@ -382,28 +377,10 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">namelist</span>
                                 <span class="value data">
                                 
-                                    5
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    4
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    47
+                                    { &quot;Doug G.&quot;, &quot;GG WALNUT DOUG&quot;, &quot;AB. JONES&quot;, &quot;A. BOB J.&quot;, &quot;Gg DouG&quot;, &quot;GG DOUG&quot; }
                                 
                                 </span>
                             </li>
@@ -415,61 +392,7 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            34
-                        
-                        </span>
-                    </div>
-                    
-                    <div class="testcase-annotation">
-                        <div class='tag'>note</div>
-                        <div class="testcase-comment">As in the previous example, Running Wild will gain 1 meter per minute for the first 30 minutes. Then, however, the deer stops and rests. Running Wild gains 5 meters per minute while the deer is resting. Note that the answer is rounded up.</div>
-                    </div>
-                    
-               
-                </div>
-            </li>
-            
-            <li class="testcase">
-                <div class="testcase-content">
-                    <div class="testcase-input">
-                        <div class='tag'>input</div>
-                        <ul class="variables">
-                        
-                            <li class="variable data">
-                                <span class="name data">A</span>
-                                <span class="value data">
-                                
-                                    10
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    17
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    1
-                                
-                                </span>
-                            </li>
-                        
-                        </ul>
-                    </div>
-                    <div class="testcase-output">
-                        <div class='tag'>output</div>
-                        <span class="prefix data">Returns</span>
-                        <span class="value data">
-                        
-                            -1
+                            { &quot;Gg Walnut Doug&quot;, &quot;Gg Doug&quot;, &quot;Gg Doug&quot; }
                         
                         </span>
                     </div>
@@ -485,28 +408,10 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">namelist</span>
                                 <span class="value data">
                                 
-                                    133
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    198
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    7515
+                                    { &quot;A BIG Mess&quot;, &quot;A. Big Mess.Mess&quot;, &quot;ABig&quot;, &quot;M.MESS&quot; }
                                 
                                 </span>
                             </li>
@@ -518,56 +423,7 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            7515
-                        
-                        </span>
-                    </div>
-                    
-               
-                </div>
-            </li>
-            
-            <li class="testcase">
-                <div class="testcase-content">
-                    <div class="testcase-input">
-                        <div class='tag'>input</div>
-                        <ul class="variables">
-                        
-                            <li class="variable data">
-                                <span class="name data">A</span>
-                                <span class="value data">
-                                
-                                    1
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    1000
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    15819
-                                
-                                </span>
-                            </li>
-                        
-                        </ul>
-                    </div>
-                    <div class="testcase-output">
-                        <div class='tag'>output</div>
-                        <span class="prefix data">Returns</span>
-                        <span class="value data">
-                        
-                            -1
+                            {  }
                         
                         </span>
                     </div>

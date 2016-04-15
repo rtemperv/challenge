@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>TopCoder SRM 182 - 250: SlayingDeer</title>
+    <title>TopCoder SRM 175 - 300: InstantRunoff</title>
     
     <link type="image/x-icon" rel="shortcut icon" href="http://www.topcoder.com/i/favicon.ico"/>
     
@@ -213,10 +213,10 @@ li.testcase .data {
 
 <body>
     <h1 class="heading">
-        <span id='contest-name'>SRM 182</span>
+        <span id='contest-name'>SRM 175</span>
         <span id='contest-division'>1</span>
-        <span id='problem-score'>250</span>
-        <span id='problem-name'>SlayingDeer</span>
+        <span id='problem-score'>300</span>
+        <span id='problem-name'>InstantRunoff</span>
     </h1>
 
     <hr />
@@ -225,9 +225,64 @@ li.testcase .data {
     <div class="section">
         <h2 class="section-title">Problem Statement</h2>
         <div class="problem-intro">
-            <intro><p>Although TopCoder member Running Wild is a vegetarian, he has recently decided that he would eat venison if he could catch a deer himself. Before committing too much time and effort to this endeavor, Running Wild would like to estimate his chances at success. To do this, he assumes that he will run at a constant speed of <b>A</b> meters per minute without ever getting tired. Similarly, a deer will run at a constant speed of <b>B</b> meters per minute, but after every 30 minutes of running, it must stop and rest for 15 minutes. Finally, Running Wild also assumes that he will begin at a given distance of <b>C</b> meters behind the deer, and that they will always be running in the same fixed direction.</p>
+            <intro><p>
 
-<p>Create a class SlayingDeer that contains a method getTime, which is given an <type>int</type> <b>A</b>, an <type>int</type> <b>B</b>, and an <type>int</type> <b>C</b>, representing the quantities described above. The method should return the number of minutes (rounded up) it will take for Running Wild to catch the deer. If Running Wild will never catch the deer, the method should return -1.</p></intro>
+Many elections are decided by plurality voting, which means that
+the winning candidate is the one who earns more votes than any other
+candidate. Such elections are susceptible to the phenomenon of vote splitting. Several
+candidates with similar views may draw support from the same voting base,
+thereby losing to a single candidate who holds less popular views. One
+remedy for vote splitting is a runoff election, where the field of
+candidates is narrowed down through successive rounds of voting until
+one candidate wins a majority of the vote.
+
+</p><p>
+
+The scheme known as instant runoff voting, or IRV, is intended to
+accomplish the same result as a runoff election without incurring the
+expense of multiple voting rounds. In an IRV election, each voter uses a
+slip of paper called a ballot to rank the slate of <i>n</i> candidates
+from 1 to <i>n</i>. The ballots are tallied as follows.
+
+</p><p>
+
+1. If one candidate is ranked first on more than half of all ballots,
+this candidate is declared the winner.
+
+</p><p>
+
+2. Otherwise, the candidate with the fewest number-one rankings is
+eliminated from all ballots, and each voter's ranking is adjusted as
+necessary. If a voter ranked this candidate first, for instance, the
+number-one rank on her ballot is now reallocated to her second-ranked 
+candidate, and so on down the line. If several candidates are tied for
+fewest number-one rankings, all of them are eliminated in this fashion.
+
+</p><p> 
+
+3. If no candidates remain, the election is declared void. Otherwise,
+return to step 1.
+
+</p><p>
+
+For an election with <i>n</i> candidates, you are given a
+<type>String</type> containing <i>n</i> distinct upper-case
+letters, each of which represents a candidate. You are also given a
+<type>String[]</type> encoding all ballots cast by the voting public. Each
+ballot ranks the candidates from most favored to least favored. If
+<i>n</i> is 5, for example, the candidates might be encoded as &quot;PQRST&quot;, 
+and some voter may rank them on her ballot as &quot;SRTQP&quot;, signifying that she
+ranks candidate S first and candidate P fifth. 
+
+</p><p>
+
+Tally the ballots as described above to determine the outcome
+of the election. If the election is void, return an empty
+<type>String</type>. Otherwise, return a single-character
+<type>String</type> containing the candidate's code.
+
+</p>
+</intro>
         </div>
     </div>
     
@@ -239,34 +294,32 @@ li.testcase .data {
             <ul class="problem-definition-lines">
                 <li class="definition-line" id='class-line'>
                     <span class='definition-name'>Class</span>
-                    <span class='definition-value'>SlayingDeer</span>
+                    <span class='definition-value'>InstantRunoff</span>
                 </li>
                 <li class="definition-line" id='method-line'>
                     <span class='definition-name'>Method</span>
-                    <span class='definition-value'>getTime</span>
+                    <span class='definition-value'>outcome</span>
                 </li>
                 <li class="definition-line" id='parameters-line'>
                     <span class='definition-name'>Parameters</span>
                     <span class='definition-value'>
                     
-                        integer
+                        string
                     , 
-                        integer
-                    , 
-                        integer
+                        tuple(string)
                     
                     </span>
                 </li>
                 <li class="definition-line" id='returns-line'>
                     <span class='definition-name'>Returns</span>
                     <span class='definition-value'>
-                        integer
+                        string
                     </span>
                 </li>
                 <li class="definition-line" id='signature-line'>
                     <span class='definition-name'>Method signature</span>
                     <span class='definition-value'>
-                        def getTime(self, A, B, C)
+                        def outcome(self, candidates, ballots)
                     </span>
                 </li>
             </ul>
@@ -293,25 +346,23 @@ li.testcase .data {
     </div>
 
     
-    <!-- Notes -->
-    <div class="section">
-        <h2 class="section-title">Notes</h2>
-        <ul class="notes">
-        
-            <li><note>If Running Wild and the deer are at precisely the same position, then Running Wild is considered to have caught the deer.</note></li>
-        
-        </ul>
-    </div>
-    
     
     <!-- Constraints -->
     <div class="section">
         <h2 class="section-title">Constraints</h2>
         <ul class="constraints">
         
-            <li><user-constraint><b>A</b> and <b>B</b> will be between 1 and 1000 inclusive.</user-constraint></li>
+            <li><user-constraint><b>candidates</b> contains between 1 and 10 characters, inclusive</user-constraint></li>
         
-            <li><user-constraint><b>C</b> will be between 1 and 100000 inclusive.</user-constraint></li>
+            <li><user-constraint>each character in <b>candidates</b> is an upper-case letter between 'A' and 'Z', inclusive</user-constraint></li>
+        
+            <li><user-constraint><b>candidates</b> contains no duplicate characters</user-constraint></li>
+        
+            <li><user-constraint><b>ballots</b> contains between 1 and 50 elements, inclusive</user-constraint></li>
+        
+            <li><user-constraint>each element of <b>ballots</b> is exactly as long as <b>candidates</b></user-constraint></li>
+        
+            <li><user-constraint>each element of <b>ballots</b> contains the same characters as <b>candidates</b>, without duplication, but not necessarily in the same order</user-constraint></li>
         
         </ul>
     </div>
@@ -328,28 +379,19 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">candidates</span>
                                 <span class="value data">
                                 
-                                    5
+                                    &quot;ABC&quot;
                                 
                                 </span>
                             </li>
                         
                             <li class="variable data">
-                                <span class="name data">B</span>
+                                <span class="name data">ballots</span>
                                 <span class="value data">
                                 
-                                    4
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    20
+                                    {&quot;ACB&quot;,<br />&nbsp;&quot;BCA&quot;,<br />&nbsp;&quot;ACB&quot;,<br />&nbsp;&quot;BCA&quot;,<br />&nbsp;&quot;CBA&quot;}
                                 
                                 </span>
                             </li>
@@ -361,14 +403,14 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            20
+                            &quot;B&quot;
                         
                         </span>
                     </div>
                     
                     <div class="testcase-annotation">
                         <div class='tag'>note</div>
-                        <div class="testcase-comment">Running Wild gains one meter per minute over the first 20 minutes before catching the deer.</div>
+                        <div class="testcase-comment">In the first round, candidates A and B earn two votes each, and C has only one. C is therefore eliminated. In the second round, B has three votes to A's two.</div>
                     </div>
                     
                
@@ -382,28 +424,19 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">candidates</span>
                                 <span class="value data">
                                 
-                                    5
+                                    &quot;DCBA&quot;
                                 
                                 </span>
                             </li>
                         
                             <li class="variable data">
-                                <span class="name data">B</span>
+                                <span class="name data">ballots</span>
                                 <span class="value data">
                                 
-                                    4
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    47
+                                    {&quot;ACBD&quot;,<br />&nbsp;&quot;ACBD&quot;,<br />&nbsp;&quot;ACBD&quot;,<br />&nbsp;&quot;BCAD&quot;,<br />&nbsp;&quot;BCAD&quot;,<br />&nbsp;&quot;DBCA&quot;,<br />&nbsp;&quot;CBDA&quot;}
                                 
                                 </span>
                             </li>
@@ -415,14 +448,54 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            34
+                            &quot;B&quot;
+                        
+                        </span>
+                    </div>
+                    
+               
+                </div>
+            </li>
+            
+            <li class="testcase">
+                <div class="testcase-content">
+                    <div class="testcase-input">
+                        <div class='tag'>input</div>
+                        <ul class="variables">
+                        
+                            <li class="variable data">
+                                <span class="name data">candidates</span>
+                                <span class="value data">
+                                
+                                    &quot;ACB&quot;
+                                
+                                </span>
+                            </li>
+                        
+                            <li class="variable data">
+                                <span class="name data">ballots</span>
+                                <span class="value data">
+                                
+                                    {&quot;ACB&quot;,<br />&nbsp;&quot;BCA&quot;,<br />&nbsp;&quot;ACB&quot;,<br />&nbsp;&quot;BCA&quot;,<br />&nbsp;&quot;ACB&quot;,<br />&nbsp;&quot;BCA&quot;,<br />&nbsp;&quot;CBA&quot;,<br />&nbsp;&quot;CAB&quot;}
+                                
+                                </span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="testcase-output">
+                        <div class='tag'>output</div>
+                        <span class="prefix data">Returns</span>
+                        <span class="value data">
+                        
+                            &quot;&quot;
                         
                         </span>
                     </div>
                     
                     <div class="testcase-annotation">
                         <div class='tag'>note</div>
-                        <div class="testcase-comment">As in the previous example, Running Wild will gain 1 meter per minute for the first 30 minutes. Then, however, the deer stops and rests. Running Wild gains 5 meters per minute while the deer is resting. Note that the answer is rounded up.</div>
+                        <div class="testcase-comment">Candidates A and B have three votes each to C's two. C is eliminated. A and B now have four votes each, so both are eliminated. The election is void.</div>
                     </div>
                     
                
@@ -436,28 +509,19 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">candidates</span>
                                 <span class="value data">
                                 
-                                    10
+                                    &quot;CAB&quot;
                                 
                                 </span>
                             </li>
                         
                             <li class="variable data">
-                                <span class="name data">B</span>
+                                <span class="name data">ballots</span>
                                 <span class="value data">
                                 
-                                    17
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    1
+                                    {&quot;ACB&quot;,<br />&nbsp;&quot;BCA&quot;,<br />&nbsp;&quot;ACB&quot;,<br />&nbsp;&quot;BCA&quot;,<br />&nbsp;&quot;ACB&quot;,<br />&nbsp;&quot;BCA&quot;,<br />&nbsp;&quot;CAB&quot;,<br />&nbsp;&quot;CAB&quot;}
                                 
                                 </span>
                             </li>
@@ -469,9 +533,14 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            -1
+                            &quot;A&quot;
                         
                         </span>
+                    </div>
+                    
+                    <div class="testcase-annotation">
+                        <div class='tag'>note</div>
+                        <div class="testcase-comment">C is eliminated in the first round. In the second round, candidate A has five votes to B's three. A wins.</div>
                     </div>
                     
                
@@ -485,28 +554,19 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">candidates</span>
                                 <span class="value data">
                                 
-                                    133
+                                    &quot;Z&quot;
                                 
                                 </span>
                             </li>
                         
                             <li class="variable data">
-                                <span class="name data">B</span>
+                                <span class="name data">ballots</span>
                                 <span class="value data">
                                 
-                                    198
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    7515
+                                    { &quot;Z&quot; }
                                 
                                 </span>
                             </li>
@@ -518,58 +578,14 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            7515
+                            &quot;Z&quot;
                         
                         </span>
                     </div>
                     
-               
-                </div>
-            </li>
-            
-            <li class="testcase">
-                <div class="testcase-content">
-                    <div class="testcase-input">
-                        <div class='tag'>input</div>
-                        <ul class="variables">
-                        
-                            <li class="variable data">
-                                <span class="name data">A</span>
-                                <span class="value data">
-                                
-                                    1
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    1000
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    15819
-                                
-                                </span>
-                            </li>
-                        
-                        </ul>
-                    </div>
-                    <div class="testcase-output">
-                        <div class='tag'>output</div>
-                        <span class="prefix data">Returns</span>
-                        <span class="value data">
-                        
-                            -1
-                        
-                        </span>
+                    <div class="testcase-annotation">
+                        <div class='tag'>note</div>
+                        <div class="testcase-comment">Z wins by unanimous vote.</div>
                     </div>
                     
                

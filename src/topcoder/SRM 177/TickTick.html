@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>TopCoder SRM 182 - 250: SlayingDeer</title>
+    <title>TopCoder SRM 177 - 300: TickTick</title>
     
     <link type="image/x-icon" rel="shortcut icon" href="http://www.topcoder.com/i/favicon.ico"/>
     
@@ -213,10 +213,10 @@ li.testcase .data {
 
 <body>
     <h1 class="heading">
-        <span id='contest-name'>SRM 182</span>
+        <span id='contest-name'>SRM 177</span>
         <span id='contest-division'>1</span>
-        <span id='problem-score'>250</span>
-        <span id='problem-name'>SlayingDeer</span>
+        <span id='problem-score'>300</span>
+        <span id='problem-name'>TickTick</span>
     </h1>
 
     <hr />
@@ -225,9 +225,36 @@ li.testcase .data {
     <div class="section">
         <h2 class="section-title">Problem Statement</h2>
         <div class="problem-intro">
-            <intro><p>Although TopCoder member Running Wild is a vegetarian, he has recently decided that he would eat venison if he could catch a deer himself. Before committing too much time and effort to this endeavor, Running Wild would like to estimate his chances at success. To do this, he assumes that he will run at a constant speed of <b>A</b> meters per minute without ever getting tired. Similarly, a deer will run at a constant speed of <b>B</b> meters per minute, but after every 30 minutes of running, it must stop and rest for 15 minutes. Finally, Running Wild also assumes that he will begin at a given distance of <b>C</b> meters behind the deer, and that they will always be running in the same fixed direction.</p>
-
-<p>Create a class SlayingDeer that contains a method getTime, which is given an <type>int</type> <b>A</b>, an <type>int</type> <b>B</b>, and an <type>int</type> <b>C</b>, representing the quantities described above. The method should return the number of minutes (rounded up) it will take for Running Wild to catch the deer. If Running Wild will never catch the deer, the method should return -1.</p></intro>
+            <intro>Our computer clock is not continuous.  It &quot;ticks&quot; every millisecond and keeps
+track of how many ticks have occurred since the beginning of the &quot;epoch&quot;
+(Jan 1, 1970). The clocktime does not change between ticks.
+<p>
+Time is continuous, and events (such as interrupts from hardware devices and
+the starting of a program) can happen anytime. We have a program that 
+experiences a sequence of events. At each event in our program, our logic gets 
+the current clocktime and compares it with the clocktime stored from the
+previous event. It outputs either 'D' or 'S' indicating whether the current
+clocktime is Different or the Same as the previous event's clocktime. (The first event
+after the program starts generates the first 'S' or 'D' based on comparison 
+with the clocktime at the start of the program.)
+</p><p>
+Because the first tick during our program can occur anytime within one millisecond after the
+start of the program, the string of 'D's and 'S's output from our program
+cannot be predicted, even given the exact timing of the program.  Create a
+class TickTick that contains a method count that is given <b>event</b>, a <type>String[]</type> 
+of the times of events relative to the start of the program, and returns 
+the number of different output sequences
+that might be generated. The <b>event</b> times are given in milliseconds elapsed 
+since the start of the program, formatted to contain digits and exactly one 
+decimal point. 
+</p><p>
+Time is continuous, so exact coincidences do not occur (or occur with probability 0). You should not consider the
+possibility that a tick occurs at exactly the same time as an event or at the exact 
+start of the program. The constraints on <b>event</b> guarantee that two 
+different events can never be exactly an integral number of
+milliseconds apart. 
+</p>
+</intro>
         </div>
     </div>
     
@@ -239,21 +266,17 @@ li.testcase .data {
             <ul class="problem-definition-lines">
                 <li class="definition-line" id='class-line'>
                     <span class='definition-name'>Class</span>
-                    <span class='definition-value'>SlayingDeer</span>
+                    <span class='definition-value'>TickTick</span>
                 </li>
                 <li class="definition-line" id='method-line'>
                     <span class='definition-name'>Method</span>
-                    <span class='definition-value'>getTime</span>
+                    <span class='definition-value'>count</span>
                 </li>
                 <li class="definition-line" id='parameters-line'>
                     <span class='definition-name'>Parameters</span>
                     <span class='definition-value'>
                     
-                        integer
-                    , 
-                        integer
-                    , 
-                        integer
+                        tuple(string)
                     
                     </span>
                 </li>
@@ -266,7 +289,7 @@ li.testcase .data {
                 <li class="definition-line" id='signature-line'>
                     <span class='definition-name'>Method signature</span>
                     <span class='definition-value'>
-                        def getTime(self, A, B, C)
+                        def count(self, events)
                     </span>
                 </li>
             </ul>
@@ -293,25 +316,21 @@ li.testcase .data {
     </div>
 
     
-    <!-- Notes -->
-    <div class="section">
-        <h2 class="section-title">Notes</h2>
-        <ul class="notes">
-        
-            <li><note>If Running Wild and the deer are at precisely the same position, then Running Wild is considered to have caught the deer.</note></li>
-        
-        </ul>
-    </div>
-    
     
     <!-- Constraints -->
     <div class="section">
         <h2 class="section-title">Constraints</h2>
         <ul class="constraints">
         
-            <li><user-constraint><b>A</b> and <b>B</b> will be between 1 and 1000 inclusive.</user-constraint></li>
+            <li><user-constraint><b>events</b> has between 1 and 50 elements inclusive</user-constraint></li>
         
-            <li><user-constraint><b>C</b> will be between 1 and 100000 inclusive.</user-constraint></li>
+            <li><user-constraint>each element of <b>events</b> has length between 2 and 8, and contains exactly one decimal point '.'. All the other characters are digits '0'-'9'</user-constraint></li>
+        
+            <li><user-constraint>no element of <b>events</b> has a value equal to an integer</user-constraint></li>
+        
+            <li><user-constraint>no two elements of <b>events</b> have values that differ by an integer</user-constraint></li>
+        
+            <li><user-constraint>the elements of <b>events</b> have values that are strictly increasing</user-constraint></li>
         
         </ul>
     </div>
@@ -328,28 +347,10 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">events</span>
                                 <span class="value data">
                                 
-                                    5
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    4
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    20
+                                    { &quot;.222&quot;, &quot;00.223&quot;, &quot;1.221&quot;, &quot;4.220&quot; }
                                 
                                 </span>
                             </li>
@@ -361,14 +362,24 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            20
+                            4
                         
                         </span>
                     </div>
                     
                     <div class="testcase-annotation">
                         <div class='tag'>note</div>
-                        <div class="testcase-comment">Running Wild gains one meter per minute over the first 20 minutes before catching the deer.</div>
+                        <div class="testcase-comment">If the clock's first tick occurs approximately .100 milliseconds after the start of
+the program,  then the clocktime at time .222
+will be Different from the clocktime at the start. The clocktime at .223 will
+be the same as at .222, the clocktime at 1.221 will be different from the
+clocktime at .223 since a tick occurs at 1.100. The clocktime at 4.220 will 
+always be different from the clocktime at 1.221. So in this case, the 
+program generates DSDD.  Similarly, <pre>
+   if the clock's first tick is at .2215, DSSD
+   if the clock's first tick is at .2225, SDSD
+   if the clock's first tick is at .2235, SSDD </pre>
+These are the only possible sequences that can be generated.</div>
                     </div>
                     
                
@@ -382,28 +393,10 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">events</span>
                                 <span class="value data">
                                 
-                                    5
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    4
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    47
+                                    { &quot;4.220112&quot;, &quot;4.221&quot;, &quot;4.222&quot;, &quot;4.223&quot; }
                                 
                                 </span>
                             </li>
@@ -415,14 +408,14 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            34
+                            4
                         
                         </span>
                     </div>
                     
                     <div class="testcase-annotation">
                         <div class='tag'>note</div>
-                        <div class="testcase-comment">As in the previous example, Running Wild will gain 1 meter per minute for the first 30 minutes. Then, however, the deer stops and rests. Running Wild gains 5 meters per minute while the deer is resting. Note that the answer is rounded up.</div>
+                        <div class="testcase-comment">DSSS, DSSD, DSDS, DDSS</div>
                     </div>
                     
                
@@ -436,28 +429,10 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">events</span>
                                 <span class="value data">
                                 
-                                    10
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    17
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    1
+                                    {&quot;123456.1&quot;,<br />&nbsp;&quot;123456.7&quot;}
                                 
                                 </span>
                             </li>
@@ -469,107 +444,16 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            -1
+                            2
                         
                         </span>
                     </div>
                     
-               
-                </div>
-            </li>
-            
-            <li class="testcase">
-                <div class="testcase-content">
-                    <div class="testcase-input">
-                        <div class='tag'>input</div>
-                        <ul class="variables">
-                        
-                            <li class="variable data">
-                                <span class="name data">A</span>
-                                <span class="value data">
-                                
-                                    133
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    198
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    7515
-                                
-                                </span>
-                            </li>
-                        
-                        </ul>
-                    </div>
-                    <div class="testcase-output">
-                        <div class='tag'>output</div>
-                        <span class="prefix data">Returns</span>
-                        <span class="value data">
-                        
-                            7515
-                        
-                        </span>
-                    </div>
-                    
-               
-                </div>
-            </li>
-            
-            <li class="testcase">
-                <div class="testcase-content">
-                    <div class="testcase-input">
-                        <div class='tag'>input</div>
-                        <ul class="variables">
-                        
-                            <li class="variable data">
-                                <span class="name data">A</span>
-                                <span class="value data">
-                                
-                                    1
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    1000
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    15819
-                                
-                                </span>
-                            </li>
-                        
-                        </ul>
-                    </div>
-                    <div class="testcase-output">
-                        <div class='tag'>output</div>
-                        <span class="prefix data">Returns</span>
-                        <span class="value data">
-                        
-                            -1
-                        
-                        </span>
+                    <div class="testcase-annotation">
+                        <div class='tag'>note</div>
+                        <div class="testcase-comment">If the first tick occurs at .05 after the program starts, the 
+output would be DS while if it occurs .5 after the program starts, then
+the output would be DD. These are the only possible results.</div>
                     </div>
                     
                

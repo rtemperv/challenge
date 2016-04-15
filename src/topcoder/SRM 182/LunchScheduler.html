@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>TopCoder SRM 182 - 250: SlayingDeer</title>
+    <title>TopCoder SRM 182 - 600: LunchScheduler</title>
     
     <link type="image/x-icon" rel="shortcut icon" href="http://www.topcoder.com/i/favicon.ico"/>
     
@@ -215,8 +215,8 @@ li.testcase .data {
     <h1 class="heading">
         <span id='contest-name'>SRM 182</span>
         <span id='contest-division'>1</span>
-        <span id='problem-score'>250</span>
-        <span id='problem-name'>SlayingDeer</span>
+        <span id='problem-score'>600</span>
+        <span id='problem-name'>LunchScheduler</span>
     </h1>
 
     <hr />
@@ -225,9 +225,29 @@ li.testcase .data {
     <div class="section">
         <h2 class="section-title">Problem Statement</h2>
         <div class="problem-intro">
-            <intro><p>Although TopCoder member Running Wild is a vegetarian, he has recently decided that he would eat venison if he could catch a deer himself. Before committing too much time and effort to this endeavor, Running Wild would like to estimate his chances at success. To do this, he assumes that he will run at a constant speed of <b>A</b> meters per minute without ever getting tired. Similarly, a deer will run at a constant speed of <b>B</b> meters per minute, but after every 30 minutes of running, it must stop and rest for 15 minutes. Finally, Running Wild also assumes that he will begin at a given distance of <b>C</b> meters behind the deer, and that they will always be running in the same fixed direction.</p>
+            <intro><p>This afternoon, several TopCoder members independently ate lunch at the prestigious TopCoder cafe. They each arrived and left at different times, and nobody returned to the cafe after having left once. Throughout the day, TopCoder waiters noticed that certain members saw each other in the cafe and shook hands. This information was collected in the form of a <type>String[]</type> <b>M</b>, where <b>M</b>[i][j] is '1' if member i and member j were seen to shake hands. Otherwise, <b>M</b>[i][j] is '0'. Clearly, if <b>M</b>[i][j] is '1', then members i and j must have been at the cafe at overlapping times. On the other hand, certain TopCoder members do not know each other, so they might not have shaken hands even if they were at the cafe at overlapping times. Given this information, TopCoder is interested in estimating the largest number of people who were in the cafe at one time.</p>
 
-<p>Create a class SlayingDeer that contains a method getTime, which is given an <type>int</type> <b>A</b>, an <type>int</type> <b>B</b>, and an <type>int</type> <b>C</b>, representing the quantities described above. The method should return the number of minutes (rounded up) it will take for Running Wild to catch the deer. If Running Wild will never catch the deer, the method should return -1.</p></intro>
+<p>Create a class LunchScheduler that contains a method getOverlap, which is given a <type>String[]</type> <b>M</b>, as described above. It should return an <type>int</type>, specifying the largest integer k such that at least k members must have been in the cafe together at one time.</p>
+
+<br />Suppose, for example,
+<pre>
+   <b>M</b> = {&quot;0110&quot;, 
+        &quot;1010&quot;, 
+        &quot;1100&quot;, 
+        &quot;0000&quot;}.
+</pre>
+Then, two possible lunch schedules are shown below.
+<br />
+<pre>
+   Member | Time period          Member | Time period
+   -------+-----------------     -------+-----------------
+      1   | ***************         1   |   *******
+      2   |  ***************        2   |       *******
+      3   |    ***********          3   |      ***
+      4   |   ******                4   |            *****
+</pre>
+<br />
+Here, the *'s indicate the time periods during which each member was in the cafe. As can easily be checked, both schedules are consistent with <b>M</b>. The leftmost schedule has four members in the cafe at one time, but this is not necessary, as can be seen from the fact that the rightmost schedule never has more than three people together at once. It turns out that any other valid schedule will also have at least three members in the cafe at one time, so the correct value for k is 3 in this case.</intro>
         </div>
     </div>
     
@@ -239,21 +259,17 @@ li.testcase .data {
             <ul class="problem-definition-lines">
                 <li class="definition-line" id='class-line'>
                     <span class='definition-name'>Class</span>
-                    <span class='definition-value'>SlayingDeer</span>
+                    <span class='definition-value'>LunchScheduler</span>
                 </li>
                 <li class="definition-line" id='method-line'>
                     <span class='definition-name'>Method</span>
-                    <span class='definition-value'>getTime</span>
+                    <span class='definition-value'>getOverlap</span>
                 </li>
                 <li class="definition-line" id='parameters-line'>
                     <span class='definition-name'>Parameters</span>
                     <span class='definition-value'>
                     
-                        integer
-                    , 
-                        integer
-                    , 
-                        integer
+                        tuple(string)
                     
                     </span>
                 </li>
@@ -266,7 +282,7 @@ li.testcase .data {
                 <li class="definition-line" id='signature-line'>
                     <span class='definition-name'>Method signature</span>
                     <span class='definition-value'>
-                        def getTime(self, A, B, C)
+                        def getOverlap(self, M)
                     </span>
                 </li>
             </ul>
@@ -293,25 +309,21 @@ li.testcase .data {
     </div>
 
     
-    <!-- Notes -->
-    <div class="section">
-        <h2 class="section-title">Notes</h2>
-        <ul class="notes">
-        
-            <li><note>If Running Wild and the deer are at precisely the same position, then Running Wild is considered to have caught the deer.</note></li>
-        
-        </ul>
-    </div>
-    
     
     <!-- Constraints -->
     <div class="section">
         <h2 class="section-title">Constraints</h2>
         <ul class="constraints">
         
-            <li><user-constraint><b>A</b> and <b>B</b> will be between 1 and 1000 inclusive.</user-constraint></li>
+            <li><user-constraint><b>M</b> will contain between 2 and 9 elements inclusive.</user-constraint></li>
         
-            <li><user-constraint><b>C</b> will be between 1 and 100000 inclusive.</user-constraint></li>
+            <li><user-constraint>If <b>M</b> contains exactly n elements, then each element of <b>M</b> will contain will contain exactly n characters.</user-constraint></li>
+        
+            <li><user-constraint>Every character in <b>M</b> is either '0' or '1'.</user-constraint></li>
+        
+            <li><user-constraint>Character i in element j of <b>M</b> will be equal to character j in element i of <b>M</b> for all i and j.</user-constraint></li>
+        
+            <li><user-constraint>Character i in element i of <b>M</b> will be '0' for all i.</user-constraint></li>
         
         </ul>
     </div>
@@ -328,28 +340,10 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">M</span>
                                 <span class="value data">
                                 
-                                    5
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    4
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    20
+                                    {&quot;0110&quot;,<br />&nbsp;&quot;1010&quot;,<br />&nbsp;&quot;1100&quot;,<br />&nbsp;&quot;0000&quot;}
                                 
                                 </span>
                             </li>
@@ -361,14 +355,14 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            20
+                            3
                         
                         </span>
                     </div>
                     
                     <div class="testcase-annotation">
                         <div class='tag'>note</div>
-                        <div class="testcase-comment">Running Wild gains one meter per minute over the first 20 minutes before catching the deer.</div>
+                        <div class="testcase-comment">This is the example from the problem statement.</div>
                     </div>
                     
                
@@ -382,28 +376,10 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">M</span>
                                 <span class="value data">
                                 
-                                    5
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    4
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    47
+                                    {&quot;011111&quot;,<br />&nbsp;&quot;101111&quot;,<br />&nbsp;&quot;110111&quot;,<br />&nbsp;&quot;111011&quot;,<br />&nbsp;&quot;111101&quot;,<br />&nbsp;&quot;111110&quot;}
                                 
                                 </span>
                             </li>
@@ -415,14 +391,15 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            34
+                            6
                         
                         </span>
                     </div>
                     
                     <div class="testcase-annotation">
                         <div class='tag'>note</div>
-                        <div class="testcase-comment">As in the previous example, Running Wild will gain 1 meter per minute for the first 30 minutes. Then, however, the deer stops and rests. Running Wild gains 5 meters per minute while the deer is resting. Note that the answer is rounded up.</div>
+                        <div class="testcase-comment">Here, every member shook every other member's hand.<br />
+Consider the earliest time period in which a member left the cafe. Nobody can leave before that, by definition, and nobody can arrive after that, or they would not have been able to shake the leaving member's hand. Thus, all six members must have been at the cafe during that time period.</div>
                     </div>
                     
                
@@ -436,28 +413,10 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">M</span>
                                 <span class="value data">
                                 
-                                    10
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    17
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    1
+                                    {&quot;01000000&quot;,<br />&nbsp;&quot;10000000&quot;,<br />&nbsp;&quot;00000000&quot;,<br />&nbsp;&quot;00000000&quot;,<br />&nbsp;&quot;00000000&quot;,<br />&nbsp;&quot;00000000&quot;,<br />&nbsp;&quot;00000001&quot;,<br />&nbsp;&quot;00000010&quot;}
                                 
                                 </span>
                             </li>
@@ -469,7 +428,55 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            -1
+                            2
+                        
+                        </span>
+                    </div>
+                    
+                    <div class="testcase-annotation">
+                        <div class='tag'>note</div>
+                        <div class="testcase-comment">At least two people must be in the cafe simultaneously when the first two members shake hands. As shown below, it is also not necessary for three people to be in the cafe simultaneously.
+<pre>
+   Member | Time period     
+   -------+----------------
+      1   | **
+      2   |  **
+      3   |     *
+      4   |       *
+      5   |         *
+      6   |           *
+      7   |             **
+      8   |              **
+</pre></div>
+                    </div>
+                    
+               
+                </div>
+            </li>
+            
+            <li class="testcase">
+                <div class="testcase-content">
+                    <div class="testcase-input">
+                        <div class='tag'>input</div>
+                        <ul class="variables">
+                        
+                            <li class="variable data">
+                                <span class="name data">M</span>
+                                <span class="value data">
+                                
+                                    {&quot;011011010&quot;,<br />&nbsp;&quot;101000111&quot;,<br />&nbsp;&quot;110010110&quot;,<br />&nbsp;&quot;000001101&quot;,<br />&nbsp;&quot;101001000&quot;,<br />&nbsp;&quot;100110101&quot;,<br />&nbsp;&quot;011101010&quot;,<br />&nbsp;&quot;111000100&quot;,<br />&nbsp;&quot;010101000&quot;}
+                                
+                                </span>
+                            </li>
+                        
+                        </ul>
+                    </div>
+                    <div class="testcase-output">
+                        <div class='tag'>output</div>
+                        <span class="prefix data">Returns</span>
+                        <span class="value data">
+                        
+                            5
                         
                         </span>
                     </div>
@@ -485,28 +492,10 @@ li.testcase .data {
                         <ul class="variables">
                         
                             <li class="variable data">
-                                <span class="name data">A</span>
+                                <span class="name data">M</span>
                                 <span class="value data">
                                 
-                                    133
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    198
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    7515
+                                    {&quot;000&quot;,<br />&nbsp;&quot;000&quot;,<br />&nbsp;&quot;000&quot;}
                                 
                                 </span>
                             </li>
@@ -518,58 +507,14 @@ li.testcase .data {
                         <span class="prefix data">Returns</span>
                         <span class="value data">
                         
-                            7515
+                            1
                         
                         </span>
                     </div>
                     
-               
-                </div>
-            </li>
-            
-            <li class="testcase">
-                <div class="testcase-content">
-                    <div class="testcase-input">
-                        <div class='tag'>input</div>
-                        <ul class="variables">
-                        
-                            <li class="variable data">
-                                <span class="name data">A</span>
-                                <span class="value data">
-                                
-                                    1
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">B</span>
-                                <span class="value data">
-                                
-                                    1000
-                                
-                                </span>
-                            </li>
-                        
-                            <li class="variable data">
-                                <span class="name data">C</span>
-                                <span class="value data">
-                                
-                                    15819
-                                
-                                </span>
-                            </li>
-                        
-                        </ul>
-                    </div>
-                    <div class="testcase-output">
-                        <div class='tag'>output</div>
-                        <span class="prefix data">Returns</span>
-                        <span class="value data">
-                        
-                            -1
-                        
-                        </span>
+                    <div class="testcase-annotation">
+                        <div class='tag'>note</div>
+                        <div class="testcase-comment">Even with no handshakes, each person had to be in the cafe at some time.</div>
                     </div>
                     
                
